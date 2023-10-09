@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { NormativeService, UsersService } from 'src/app/core/services';
@@ -19,7 +19,7 @@ export enum ModalTitle {
     styleUrls: ['./normative-record.component.scss'],
 })
 export class NormativeRecordComponent implements OnInit, OnDestroy {
-    normativeRecordForm: FormGroup;
+    normativeRecordForm: UntypedFormGroup;
     title: ModalTitle;
     data: NormativaDTOV1;
     edit: boolean;
@@ -31,7 +31,7 @@ export class NormativeRecordComponent implements OnInit, OnDestroy {
     constructor(
         @Inject(MAT_DIALOG_DATA)
         public readonly normativeData: NormativeData,
-        private readonly formBuilder: FormBuilder,
+        private readonly formBuilder: UntypedFormBuilder,
         private readonly ref: MatDialogRef<never>,
         private users: UsersService,
         private normative: NormativeService,

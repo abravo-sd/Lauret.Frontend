@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { SitesService, UsersService } from 'src/app/core/services';
@@ -19,7 +19,7 @@ export enum ModalTitle {
   styleUrls: ['./site-record.component.scss'],
 })
 export class SiteRecordComponent implements OnInit, OnDestroy {
-  siteRecordForm: FormGroup;
+  siteRecordForm: UntypedFormGroup;
   title: ModalTitle;
   data: SedeDTOV1;
   edit: boolean;
@@ -30,7 +30,7 @@ export class SiteRecordComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public readonly siteData: SiteData,
-    private readonly formBuilder: FormBuilder,
+    private readonly formBuilder: UntypedFormBuilder,
     private readonly sites: SitesService,
     private readonly ref: MatDialogRef<never>,
     private users: UsersService,

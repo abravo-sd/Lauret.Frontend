@@ -1,5 +1,5 @@
 import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription, Subject } from 'rxjs';
 
@@ -60,7 +60,7 @@ export enum ModalTitle {
 export class UserRecordComponent implements OnInit, OnDestroy {
     @ViewChild('input', { static: true })
     inputSearch: ElementRef;
-    userRecordForm: FormGroup;
+    userRecordForm: UntypedFormGroup;
     title: ModalTitle;
     data: CatalogoUsuarioDTOV1;
     userExists: boolean;
@@ -95,7 +95,7 @@ export class UserRecordComponent implements OnInit, OnDestroy {
         private authService: MsalService,
         private broadcastService: MsalBroadcastService,
 
-        private readonly formBuilder: FormBuilder,
+        private readonly formBuilder: UntypedFormBuilder,
         private readonly ref: MatDialogRef<never>,
         private users: UsersService,
         private readonly profiles: ProfileService,

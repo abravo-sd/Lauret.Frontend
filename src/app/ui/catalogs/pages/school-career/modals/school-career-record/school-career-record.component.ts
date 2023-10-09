@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { SchoolCareerService, UsersService } from 'src/app/core/services';
@@ -19,7 +19,7 @@ export enum ModalTitle {
     styleUrls: ['./school-career-record.component.scss'],
 })
 export class SchoolCareerRecordComponent implements OnInit, OnDestroy {
-    schoolCareerRecordForm: FormGroup;
+    schoolCareerRecordForm: UntypedFormGroup;
     title: ModalTitle;
     data: CarreraDTOV1;
     edit: boolean;
@@ -29,7 +29,7 @@ export class SchoolCareerRecordComponent implements OnInit, OnDestroy {
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public readonly schoolCareerData: CareerData,
-        private readonly formBuilder: FormBuilder,
+        private readonly formBuilder: UntypedFormBuilder,
         private readonly schoolCareers: SchoolCareerService,
         private readonly ref: MatDialogRef<never>,
         private users: UsersService,

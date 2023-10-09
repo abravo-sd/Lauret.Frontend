@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import {
@@ -39,14 +39,14 @@ export class CriteriaComponent implements OnInit {
 
   dataSource: MatTableDataSource<CriterioDTOV1>;
   filters: TablePaginatorSearch;
-  criteriaForm: FormGroup;
+  criteriaForm: UntypedFormGroup;
 
   accreditorList: AcreditadoraDTOV1[];
   processList: AcreditadoraProcesoDTOV1[];
   careersList: CarreraDTOV1[];
 
   constructor(
-    private readonly formBuilder: FormBuilder,
+    private readonly formBuilder: UntypedFormBuilder,
     private readonly criteriaRecord: CriteriaRecordService,
     private readonly criteriaCopy: CriteriaCopyService,
     private readonly accreditors: AccreditorsService,

@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import * as moment from 'moment';
@@ -31,7 +31,7 @@ export class EvidenceLogComponent implements OnInit {
 
     dataSource: MatTableDataSource<any>;
     filters: TablePaginatorSearch;
-    evidenceForm: FormGroup;
+    evidenceForm: UntypedFormGroup;
     tableColumn: string[];
 
     accreditorList: AcreditadoraDTOV1[];
@@ -41,7 +41,7 @@ export class EvidenceLogComponent implements OnInit {
     permissionValid: boolean;
 
     constructor(
-        private readonly formBuilder: FormBuilder,
+        private readonly formBuilder: UntypedFormBuilder,
         private readonly evidenceLogRecord: EvidenceLogRecordService,
         private readonly evidenceLog: EvidenceLogService,
         private readonly accreditors: AccreditorsService,

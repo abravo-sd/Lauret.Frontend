@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
@@ -48,7 +48,7 @@ export enum ModalTitle {
     styleUrls: ['./evaluation-element-record.component.scss'],
 })
 export class EvaluationElementRecordComponent implements OnInit, OnDestroy {
-    evaluationElementRecordForm: FormGroup;
+    evaluationElementRecordForm: UntypedFormGroup;
     title: ModalTitle;
     data: ElementoEvaluacionDTOV1;
     yearList: ElementoEvaluacionAnio[];
@@ -87,7 +87,7 @@ export class EvaluationElementRecordComponent implements OnInit, OnDestroy {
         public readonly evidence: EvidencesService,
         public readonly evidenceService: EvidencesCatalogService,
         private users: UsersService,
-        private readonly formBuilder: FormBuilder,
+        private readonly formBuilder: UntypedFormBuilder,
         private readonly ref: MatDialogRef<never>
     ) {
         this.title = ModalTitle.NEW;

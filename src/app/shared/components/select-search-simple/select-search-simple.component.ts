@@ -14,7 +14,7 @@ import {
 import {
   ControlContainer,
   ControlValueAccessor,
-  FormControl,
+  UntypedFormControl,
   FormControlDirective,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
@@ -43,7 +43,7 @@ export class SelectSearchSimpleComponent implements OnInit, OnDestroy, OnChanges
   @Input() selectedElementsText: string;
   @Input() multiple: boolean;
   @Input()
-  formControl: FormControl = new FormControl();
+  formControl: UntypedFormControl = new UntypedFormControl();
   @Input()
   formControlName: string = '';
   @Input() label: string;
@@ -53,7 +53,7 @@ export class SelectSearchSimpleComponent implements OnInit, OnDestroy, OnChanges
   @Output() changeSelect: EventEmitter<any>;
   @Output() previousSelect: EventEmitter<any>;
 
-  controlSearch: FormControl = new FormControl();
+  controlSearch: UntypedFormControl = new UntypedFormControl();
   filteredData: ReplaySubject<any[]> = new ReplaySubject<any[]>(1);
   filteredDataCache: any[] = [];
   isIndeterminate = false;

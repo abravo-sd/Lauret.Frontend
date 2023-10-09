@@ -1,5 +1,5 @@
 import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { saveAs } from 'file-saver';
 import { ChapterService, CriteriaService, EvidenceLogService, UsersService } from 'src/app/core/services';
@@ -25,8 +25,8 @@ enum TabIndex {
 })
 export class EvidenceLogRecordComponent implements OnInit {
   @ViewChild('dialog', { static: true }) scroll: ElementRef;
-  evidenceForm: FormGroup;
-  uploadUrlForm: FormGroup;
+  evidenceForm: UntypedFormGroup;
+  uploadUrlForm: UntypedFormGroup;
 
   selectedIndex: TabIndex;
   fileList: RegistroEvidenciaArchivo[];
@@ -38,7 +38,7 @@ export class EvidenceLogRecordComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public readonly data: EvidenceLogDataRecord,
-    private readonly formBuilder: FormBuilder,
+    private readonly formBuilder: UntypedFormBuilder,
     public readonly users: UsersService,
     public readonly chapters: ChapterService,
     public readonly criterias: CriteriaService,

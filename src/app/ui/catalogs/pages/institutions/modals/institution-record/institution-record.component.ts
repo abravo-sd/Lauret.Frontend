@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { InstitutionService, UsersService } from 'src/app/core/services';
@@ -20,7 +20,7 @@ export enum ModalTitle {
   styleUrls: ['./institution-record.component.scss'],
 })
 export class InstitutionRecordComponent implements OnInit, OnDestroy {
-  institutionRecordForm: FormGroup;
+  institutionRecordForm: UntypedFormGroup;
   title: ModalTitle;
   data: InstitucionDTOV1;
   edit: boolean;
@@ -33,7 +33,7 @@ export class InstitutionRecordComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public readonly institutionData: InstitutionData,
-    private readonly formBuilder: FormBuilder,
+    private readonly formBuilder: UntypedFormBuilder,
     private readonly institutions: InstitutionService,
     private readonly ref: MatDialogRef<never>,
     private users: UsersService,

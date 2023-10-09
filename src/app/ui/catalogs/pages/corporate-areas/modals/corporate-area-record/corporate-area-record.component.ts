@@ -1,6 +1,6 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 //import { MatChipInputEvent } from '@angular/material/chips/public-api';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -25,7 +25,7 @@ export enum ModalTitle {
     styleUrls: ['./corporate-area-record.component.scss'],
 })
 export class CorporateAreaRecordComponent implements OnInit, OnDestroy {
-    corporateAreaRecordForm: FormGroup;
+    corporateAreaRecordForm: UntypedFormGroup;
     title: ModalTitle;
     data: AreaCorporativaDTOV1;
     edit: boolean;
@@ -42,7 +42,7 @@ export class CorporateAreaRecordComponent implements OnInit, OnDestroy {
     constructor(
         @Inject(MAT_DIALOG_DATA)
         public readonly coporateAreaData: CorporateAreaData,
-        private readonly formBuilder: FormBuilder,
+        private readonly formBuilder: UntypedFormBuilder,
         private readonly corporateArea: CorporateAreaService,
         private readonly ref: MatDialogRef<never>,
         private users: UsersService,

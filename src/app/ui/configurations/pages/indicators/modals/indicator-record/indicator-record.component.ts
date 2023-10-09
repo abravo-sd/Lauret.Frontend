@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import {
@@ -46,7 +46,7 @@ export enum ModalTitle {
   styleUrls: ['./indicator-record.component.scss'],
 })
 export class IndicatorRecordComponent implements OnInit, OnDestroy {
-  cfgIndicatorRecordForm: FormGroup;
+  cfgIndicatorRecordForm: UntypedFormGroup;
   title: ModalTitle;
   data: ConfiguracionIndicadorSiacDTOV1;
   dataSource: any[];
@@ -76,7 +76,7 @@ export class IndicatorRecordComponent implements OnInit, OnDestroy {
     public readonly indicadorData: ConfiguracionIndicadorData,
     public readonly evaluationElement: EvaluationElementService,
     private readonly configurationIndicatorSiacService: ConfigurationIndicatorSiacService,
-    private readonly formBuilder: FormBuilder,
+    private readonly formBuilder: UntypedFormBuilder,
     private readonly ref: MatDialogRef<never>,
     private readonly validator: ValidatorService,
     private readonly responsibilityAreasService: ResponsibilityAreasService,

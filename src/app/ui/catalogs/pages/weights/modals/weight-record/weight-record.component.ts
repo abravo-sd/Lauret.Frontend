@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { ComponentsService, LevelModalityService, UsersService } from 'src/app/core/services';
@@ -32,7 +32,7 @@ export enum ModalTitle {
 export class WeightRecordComponent implements OnInit, OnDestroy {
     dataSource: MatTableDataSource<PonderacionDTOV1>;
     totalPuntuacion: number;
-    ponderacionRecordForm: FormGroup;
+    ponderacionRecordForm: UntypedFormGroup;
     title: ModalTitle;
     data: PonderacionDTOV1;
     edit: boolean;
@@ -47,7 +47,7 @@ export class WeightRecordComponent implements OnInit, OnDestroy {
         @Inject(MAT_DIALOG_DATA)
         public readonly ponderacionData: PonderacionData,
         public readonly levelModality: LevelModalityService,
-        private readonly formBuilder: FormBuilder,
+        private readonly formBuilder: UntypedFormBuilder,
         private readonly weight: WeightService,
         private readonly ref: MatDialogRef<never>,
         private componenteService: ComponentsService,

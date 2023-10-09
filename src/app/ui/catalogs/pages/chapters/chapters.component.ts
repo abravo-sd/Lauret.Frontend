@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { AccreditorsService, ChapterService } from 'src/app/core/services';
@@ -30,13 +30,13 @@ export class ChaptersComponent implements OnInit {
 
     dataSource: MatTableDataSource<CapituloDTOV1>;
     filters: TablePaginatorSearch;
-    chapterForm: FormGroup;
+    chapterForm: UntypedFormGroup;
 
     accreditorList: AcreditadoraDTOV1[];
     processList: AcreditadoraProcesoDTOV1[];
 
     constructor(
-        private readonly formBuilder: FormBuilder,
+        private readonly formBuilder: UntypedFormBuilder,
         private readonly copyProcess: CopyProcessService,
         private readonly chapterRecord: ChapterRecordService,
         private readonly accreditors: AccreditorsService,

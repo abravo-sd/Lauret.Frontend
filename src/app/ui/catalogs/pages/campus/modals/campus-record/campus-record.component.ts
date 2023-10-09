@@ -1,6 +1,6 @@
 import { LevelModalityService } from './../../../../../../core/services/api/level-modality/level-modality.service';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { CampusService, RegionsService, UsersService } from 'src/app/core/services';
@@ -30,7 +30,7 @@ export enum ModalTitle {
   styleUrls: ['./campus-record.component.scss'],
 })
 export class CampusRecordComponent implements OnInit, OnDestroy {
-  campusRecordForm: FormGroup;
+  campusRecordForm: UntypedFormGroup;
   title: ModalTitle;
   data: CampusDTOV1;
   edit: boolean;
@@ -45,7 +45,7 @@ export class CampusRecordComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA)
     public readonly campusData: CampusData,
     public readonly levelModality: LevelModalityService,
-    private readonly formBuilder: FormBuilder,
+    private readonly formBuilder: UntypedFormBuilder,
     private readonly campus: CampusService,
     private readonly ref: MatDialogRef<never>,
     private regions: RegionsService,

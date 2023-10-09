@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -18,8 +18,8 @@ export class AccreditorRecordComponent implements OnInit, OnDestroy {
     @ViewChild(MatPaginator, { static: true }) readonly paginator: MatPaginator;
     dataAccreditor: AcreditadoraDTOV1;
     data: AcreditadoraProcesoDTOV1[];
-    accreditorRecordForm: FormGroup;
-    accreditorTableForm: FormGroup;
+    accreditorRecordForm: UntypedFormGroup;
+    accreditorTableForm: UntypedFormGroup;
     dataSource: MatTableDataSource<AcreditadoraProcesoDTOV1>;
     processindex: number;
     actionEditProcess: boolean;
@@ -29,7 +29,7 @@ export class AccreditorRecordComponent implements OnInit, OnDestroy {
     constructor(
         @Inject(MAT_DIALOG_DATA) public readonly accreditorData: AccreditorData,
         private readonly matDialogRef: MatDialogRef<boolean>,
-        private readonly formBuilder: FormBuilder,
+        private readonly formBuilder: UntypedFormBuilder,
         private readonly accreditors: AccreditorsService,
         private readonly validator: ValidatorService
     ) {

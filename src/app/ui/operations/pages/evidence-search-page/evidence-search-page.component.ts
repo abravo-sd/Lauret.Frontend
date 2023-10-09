@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -23,7 +23,7 @@ import {
 })
 export class EvidenceSearchPageComponent implements OnInit {
   @ViewChild('paginator', { static: true }) readonly paginator: MatPaginator;
-  evidenceForm: FormGroup;
+  evidenceForm: UntypedFormGroup;
   dataSource: MatTableDataSource<RegistroEvidenciaArchivo>;
   filters: TablePaginatorSearch;
   evidence: Evidencia;
@@ -37,7 +37,7 @@ export class EvidenceSearchPageComponent implements OnInit {
   extensionAvailable: string[];
 
   constructor(
-    private readonly formBuilder: FormBuilder,
+    private readonly formBuilder: UntypedFormBuilder,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     private readonly evidences: EvidencesService,

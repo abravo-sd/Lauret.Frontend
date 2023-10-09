@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { ComponentUvmService, IndicatorUvmService, SubindicatorUvmService } from 'src/app/core/services';
@@ -36,7 +36,7 @@ export class UvmMatrixRecordComponent implements OnInit {
     subscription: Subscription;
     disabled: boolean;
     permission: boolean;
-    matrixUvmRecordForm: FormGroup;
+    matrixUvmRecordForm: UntypedFormGroup;
     componentUvmList: ComponenteUVMDTOV1[];
     indicatorUvmList: IndicadorUVMDTOV1[];
     subIndicatorUvmList: SubIndicadorUVMDTOV1[];
@@ -44,7 +44,7 @@ export class UvmMatrixRecordComponent implements OnInit {
     constructor(
         @Inject(MAT_DIALOG_DATA)
         public readonly matrixUvmData: MatrixUvmData,
-        private readonly formBuilder: FormBuilder,
+        private readonly formBuilder: UntypedFormBuilder,
         private readonly ref: MatDialogRef<never>,
         private readonly validator: ValidatorService,
         private readonly indicatorService: IndicatorUvmService,

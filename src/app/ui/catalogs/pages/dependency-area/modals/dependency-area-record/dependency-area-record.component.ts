@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { RegionsService, UsersService } from 'src/app/core/services';
@@ -22,7 +22,7 @@ export enum ModalTitle {
   styleUrls: ['./dependency-area-record.component.scss'],
 })
 export class DependencyAreaRecordComponent implements OnInit, OnDestroy  {
-  dependenciaAreaRecordForm: FormGroup;
+  dependenciaAreaRecordForm: UntypedFormGroup;
   title: ModalTitle;
   data: DependenciaAreaDTOV1;
   edit: boolean;
@@ -36,7 +36,7 @@ export class DependencyAreaRecordComponent implements OnInit, OnDestroy  {
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public readonly dependenciaAreaData: DependenciaAreaData,
-    private readonly formBuilder: FormBuilder,
+    private readonly formBuilder: UntypedFormBuilder,
     private readonly dependenciaareas: DependencyAreaService,
     private readonly ref: MatDialogRef<never>,
     private users: UsersService,

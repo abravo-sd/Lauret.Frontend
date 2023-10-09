@@ -1,5 +1,5 @@
 import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSelectChange } from '@angular/material/select';
 import { Subscription } from 'rxjs';
@@ -33,7 +33,7 @@ export enum ModalTitle {
     styleUrls: ['./evaluation-period-record.component.scss'],
 })
 export class EvaluationPeriodRecordComponent implements OnInit, OnDestroy {
-    evaluationPeriodRecordForm: FormGroup;
+    evaluationPeriodRecordForm: UntypedFormGroup;
     title: ModalTitle;
     data: PeriodoEvaluacionDTOV1;
     edit: boolean;
@@ -66,7 +66,7 @@ export class EvaluationPeriodRecordComponent implements OnInit, OnDestroy {
         @Inject(MAT_DIALOG_DATA)
         public readonly evaluationPeriodData: EvaluationPeriodData,
         public readonly cycles: CyclesServiceV1,
-        private readonly formBuilder: FormBuilder,
+        private readonly formBuilder: UntypedFormBuilder,
         private readonly evaluationPeriod: EvaluationPeriodService,
         private readonly ref: MatDialogRef<never>,
         private users: UsersService,

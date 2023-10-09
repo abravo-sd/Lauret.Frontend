@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { CyclesService, LevelModalityService, ResponsibilityAreasService, UsersService } from 'src/app/core/services';
@@ -28,7 +28,7 @@ export enum ModalTitle {
     styleUrls: ['./general-configuration-record.component.scss'],
 })
 export class GeneralConfigurationRecordComponent implements OnInit {
-    generalConfigurationRecorForom: FormGroup;
+    generalConfigurationRecorForom: UntypedFormGroup;
     title: ModalTitle;
     data: ConfNivelAreaResponsableDTO;
     edit: boolean;
@@ -46,7 +46,7 @@ export class GeneralConfigurationRecordComponent implements OnInit {
         public readonly cycles: CyclesService,
         public readonly levelModality: LevelModalityService,
         public readonly responsibilityAreas: ResponsibilityAreasService,
-        private readonly formBuilder: FormBuilder,
+        private readonly formBuilder: UntypedFormBuilder,
         private readonly ref: MatDialogRef<never>,
         private users: UsersService,
         private readonly validator: ValidatorService

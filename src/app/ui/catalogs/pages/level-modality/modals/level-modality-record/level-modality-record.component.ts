@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { LevelModalityService, RegionsService, UsersService } from 'src/app/core/services';
@@ -27,7 +27,7 @@ export enum ModalTitle {
   styleUrls: ['./level-modality-record.component.scss'],
 })
 export class LevelModalityRecordComponent implements OnInit, OnDestroy {
-  levelModalityRecordForm: FormGroup;
+  levelModalityRecordForm: UntypedFormGroup;
   title: ModalTitle;
   data: NivelModalidadDTOV1;
   edit: boolean;
@@ -41,7 +41,7 @@ export class LevelModalityRecordComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public readonly levelModalityData: LevelModalityData,
-    private readonly formBuilder: FormBuilder,
+    private readonly formBuilder: UntypedFormBuilder,
     private readonly levelModality: LevelModalityService,
     private readonly ref: MatDialogRef<never>,
     private regions: RegionsService,

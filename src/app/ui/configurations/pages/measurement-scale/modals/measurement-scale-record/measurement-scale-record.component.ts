@@ -1,6 +1,6 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
@@ -42,7 +42,7 @@ export enum ModalTitle {
     styleUrls: ['./measurement-scale-record.component.scss'],
 })
 export class MeasurementScaleRecordComponent implements OnInit, OnDestroy {
-    measurementScaleRecordForm: FormGroup;
+    measurementScaleRecordForm: UntypedFormGroup;
     subscription: Subscription;
     edit: boolean;
     disabled: boolean;
@@ -70,7 +70,7 @@ export class MeasurementScaleRecordComponent implements OnInit, OnDestroy {
     constructor(
         @Inject(MAT_DIALOG_DATA)
         public readonly measurementScaleData: MeasurementScaleData,
-        private readonly formBuilder: FormBuilder,
+        private readonly formBuilder: UntypedFormBuilder,
         private readonly ref: MatDialogRef<never>,
         private readonly evaluationElement: EvaluationElementService,
         private readonly measurementScaleService: MeasurementScaleService,
@@ -110,13 +110,13 @@ export class MeasurementScaleRecordComponent implements OnInit, OnDestroy {
             componente: [{ value: null, disabled: true }],
             componenteId: [{ value: null, disabled: true }],
             institucion:  [{ value: null, disabled: true }],
-            escenarios: new FormArray([]),
+            escenarios: new UntypedFormArray([]),
             activo: [true, []],
         });
     }
 
-    get escenariosListArr(): FormArray {
-        return this.measurementScaleRecordForm.get('escenarios') as FormArray;
+    get escenariosListArr(): UntypedFormArray {
+        return this.measurementScaleRecordForm.get('escenarios') as UntypedFormArray;
     }
 
     ngOnInit() {
@@ -212,7 +212,7 @@ export class MeasurementScaleRecordComponent implements OnInit, OnDestroy {
         });
     }
 
-    private createItem(item: CatalogEscalaMedicionDTOV1): FormGroup {
+    private createItem(item: CatalogEscalaMedicionDTOV1): UntypedFormGroup {
         return this.formBuilder.group({
             escalaMedicionCondicionId: [null],
             confEscalaMedicionId: [null],

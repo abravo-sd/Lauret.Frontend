@@ -1,4 +1,4 @@
-import { AbstractControl, FormControl } from '@angular/forms';
+import { AbstractControl, UntypedFormControl } from '@angular/forms';
 
 export class Utils {
   /**
@@ -7,7 +7,7 @@ export class Utils {
    * @param control FormControl
    * @param error error for remove
    */
-  static removeCtrlError(control: FormControl | AbstractControl, error: string): void {
+  static removeCtrlError(control: UntypedFormControl | AbstractControl, error: string): void {
     const errors = control.errors;
     if (!errors) {
       return;

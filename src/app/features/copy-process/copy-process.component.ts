@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AccreditorsService } from 'src/app/core/services';
 import { AcreditadoraDTO, AcreditadoraDTOV1, AcreditadoraProcesoDTO, AcreditadoraProcesoDTOV1, CopyProcess, TablePaginatorSearch } from 'src/app/utils/models';
@@ -10,13 +10,13 @@ import { AcreditadoraDTO, AcreditadoraDTOV1, AcreditadoraProcesoDTO, Acreditador
     styleUrls: ['./copy-process.component.scss'],
 })
 export class CopyProcessComponent implements OnInit {
-    copyForm: FormGroup;
+    copyForm: UntypedFormGroup;
     filters: TablePaginatorSearch;
     accreditorList: AcreditadoraDTOV1[];
     processList: AcreditadoraProcesoDTOV1[];
 
     constructor(
-        private readonly formBuilder: FormBuilder,
+        private readonly formBuilder: UntypedFormBuilder,
         private readonly accreditorsService: AccreditorsService,
         private readonly matDialogRef: MatDialogRef<boolean>
     ) {

@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { ChapterService, CriteriaService, EvidenceTypeService, SchoolCareerService } from 'src/app/core/services';
@@ -21,7 +21,7 @@ import { CriteriaRecordData } from './criteria-record.service';
   styleUrls: ['./criteria-record.component.scss'],
 })
 export class CriteriaRecordComponent implements OnInit, OnDestroy {
-  criteriaForm: FormGroup;
+  criteriaForm: UntypedFormGroup;
   evidenceTypeList: TipoEvidenciaDTO[];
   chaptersList: CapituloDTOV1[];
   careersList: CarreraDTOV1[];
@@ -31,7 +31,7 @@ export class CriteriaRecordComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(MAT_DIALOG_DATA) public readonly data: CriteriaRecordData,
     private readonly matDialogRef: MatDialogRef<boolean>,
-    private readonly formBuilder: FormBuilder,
+    private readonly formBuilder: UntypedFormBuilder,
     private readonly validator: ValidatorService,
     private readonly evidenceType: EvidenceTypeService,
     private readonly chapter: ChapterService,

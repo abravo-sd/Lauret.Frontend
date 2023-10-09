@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { UsersService } from 'src/app/core/services';
@@ -20,7 +20,7 @@ export enum ModalTitle {
     styleUrls: ['./indicator-siac-record.component.scss'],
 })
 export class IndicatorSiacRecordComponent implements OnInit, OnDestroy {
-    indicatorSiacRecordForm: FormGroup;
+    indicatorSiacRecordForm: UntypedFormGroup;
     title: ModalTitle;
     data: IndicadorSiacDTOV1;
     edit: boolean;
@@ -33,7 +33,7 @@ export class IndicatorSiacRecordComponent implements OnInit, OnDestroy {
         @Inject(MAT_DIALOG_DATA)
         public readonly indicatorSiacData: IndicatorSiacData,
         public readonly indicatorSiacService: IndicatorSiacService,
-        private readonly formBuilder: FormBuilder,
+        private readonly formBuilder: UntypedFormBuilder,
         private readonly ref: MatDialogRef<never>,
         private users: UsersService,
         private readonly validator: ValidatorService

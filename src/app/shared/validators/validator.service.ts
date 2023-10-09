@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormControl, ValidationErrors } from '@angular/forms';
+import { AbstractControl, UntypedFormControl, ValidationErrors } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -7,7 +7,7 @@ import { AbstractControl, FormControl, ValidationErrors } from '@angular/forms';
 export class ValidatorService {
   constructor() {}
 
-  noWhitespace(control: FormControl) {
+  noWhitespace(control: UntypedFormControl) {
     const isWhitespace = !!(control.value || '').trim && (control.value || '').trim().length === 0;
     const isValid = !isWhitespace;
     return isValid ? null : { noWhitespace: true };

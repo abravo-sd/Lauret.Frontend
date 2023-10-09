@@ -1,6 +1,6 @@
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
-export const clearForm = (formGroup: FormGroup): void => {
+export const clearForm = (formGroup: UntypedFormGroup): void => {
   Object.keys(formGroup.controls).forEach((key) =>
     formGroup.get(key).value
       ? formGroup

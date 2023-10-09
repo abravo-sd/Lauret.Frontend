@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormArray, UntypedFormBuilder, FormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
@@ -42,7 +42,7 @@ export enum ModalTitle {
     styleUrls: ['./profile-record.component.scss'],
 })
 export class ProfileRecordComponent implements OnInit, OnDestroy {
-    profileRecordForm: FormGroup;
+    profileRecordForm: UntypedFormGroup;
     title: ModalTitle;
     data: PerfilDTOV1;
     edit: boolean;
@@ -60,7 +60,7 @@ export class ProfileRecordComponent implements OnInit, OnDestroy {
         public readonly profileData: ProfileData,
         public readonly profile: ProfileService,
         public readonly levelModality: LevelModalityService,
-        private readonly formBuilder: FormBuilder,
+        private readonly formBuilder: UntypedFormBuilder,
         public readonly view: ViewsService,
         public readonly campus: CampusService,
         private readonly ref: MatDialogRef<never>,
@@ -87,13 +87,13 @@ export class ProfileRecordComponent implements OnInit, OnDestroy {
             vistInicialNombre: [null],
             // campuses: [[], [Validators.required]],
             activo: [true, []],
-            catalogs: new FormArray([])
+            catalogs: new UntypedFormArray([])
             // modules: new FormArray([]),
         });
     }
 
-    get catalogListArr(): FormArray {
-        return this.profileRecordForm.get('catalogs') as FormArray;
+    get catalogListArr(): UntypedFormArray {
+        return this.profileRecordForm.get('catalogs') as UntypedFormArray;
     }
 
     // get moduleListArr(): FormArray {
@@ -273,7 +273,7 @@ export class ProfileRecordComponent implements OnInit, OnDestroy {
         });
     }
 
-    private createItem(control: VistaDTOV1): FormGroup {
+    private createItem(control: VistaDTOV1): UntypedFormGroup {
         return this.formBuilder.group({
             idVista: [control.idVista],
             vistaSelected: [false],

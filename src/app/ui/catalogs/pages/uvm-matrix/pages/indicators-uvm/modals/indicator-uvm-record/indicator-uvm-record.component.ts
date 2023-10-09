@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { IndicatorService, IndicatorUvmService, ComponentUvmService, UsersService } from 'src/app/core/services';
@@ -20,7 +20,7 @@ export enum ModalTitle {
     styleUrls: ['./indicator-uvm-record.component.scss'],
 })
 export class IndicatorUvmRecordComponent implements OnInit, OnDestroy {
-    indicatorUvmRecordForm: FormGroup;
+    indicatorUvmRecordForm: UntypedFormGroup;
     title: ModalTitle;
     data: IndicadorUVMDTOV1;
     componenteUVMList: ComponenteUVMDTOV1[];
@@ -33,7 +33,7 @@ export class IndicatorUvmRecordComponent implements OnInit, OnDestroy {
     constructor(
         @Inject(MAT_DIALOG_DATA)
         public readonly indicatorData: IndicatorUVMData,
-        private readonly formBuilder: FormBuilder,
+        private readonly formBuilder: UntypedFormBuilder,
         private readonly ref: MatDialogRef<never>,
         private readonly validator: ValidatorService,
         private readonly indicatorUvmService: IndicatorUvmService,

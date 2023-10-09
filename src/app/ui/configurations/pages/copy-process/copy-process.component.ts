@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { UsersService } from 'src/app/core/services';
 import { ModalTitle } from '../indicators/modals/indicator-record/indicator-record.component';
@@ -10,7 +10,7 @@ import { ModalTitle } from '../indicators/modals/indicator-record/indicator-reco
   styleUrls: ['./copy-process.component.scss'],
 })
 export class CopyProcessComponent implements OnInit {
-  copyProcessForm: FormGroup;
+  copyProcessForm: UntypedFormGroup;
   title: ModalTitle;
   edit: boolean;
   subscription: Subscription;
@@ -19,7 +19,7 @@ export class CopyProcessComponent implements OnInit {
   yearList: number[];
   cycleList: string[];
 
-  constructor(private readonly formBuilder: FormBuilder, private users: UsersService) {
+  constructor(private readonly formBuilder: UntypedFormBuilder, private users: UsersService) {
     this.title = ModalTitle.NEW;
     this.edit = null;
     this.disabled = null;

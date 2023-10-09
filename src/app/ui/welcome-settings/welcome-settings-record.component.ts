@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import { SettingsWelcomeService, UsersService } from 'src/app/core/services';
@@ -28,10 +28,10 @@ import Swal from 'sweetalert2';
     styleUrls: ['./welcome-settings-record.component.scss']
 })
 export class WelcomeSettingsRecordComponent implements OnInit, OnDestroy {
-    cfgIndicatorRecordForm: FormGroup;
+    cfgIndicatorRecordForm: UntypedFormGroup;
     quillDisplayModuleOptions: any;
     quillEditorModuleOptions: any;
-    settingsForm: FormGroup;
+    settingsForm: UntypedFormGroup;
     data: SettingsWelcomeDTO;
     listaArchivos: ListaArchivosModuloBienvenida[];
     disabled: boolean;
@@ -42,7 +42,7 @@ export class WelcomeSettingsRecordComponent implements OnInit, OnDestroy {
     editorData: any;
     archivos: FormData[];
     constructor(
-        private readonly formBuilder: FormBuilder,
+        private readonly formBuilder: UntypedFormBuilder,
         private readonly settingsWelcomeService: SettingsWelcomeService,
         private users: UsersService,
         private _sanitizer: DomSanitizer,

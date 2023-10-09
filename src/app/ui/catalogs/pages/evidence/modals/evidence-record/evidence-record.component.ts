@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { EvidencesCatalogService,  UsersService } from 'src/app/core/services';
@@ -20,7 +20,7 @@ export enum ModalTitle {
     styleUrls: ['./evidence-record.component.scss'],
 })
 export class EvidenceRecordComponent implements OnInit, OnDestroy {
-    evidenceRecordForm: FormGroup;
+    evidenceRecordForm: UntypedFormGroup;
     title: ModalTitle;
     data: EvidenceDTO;
     edit: boolean;
@@ -34,7 +34,7 @@ export class EvidenceRecordComponent implements OnInit, OnDestroy {
     constructor(
         @Inject(MAT_DIALOG_DATA)
         public readonly evidenceData: EvidenceData,
-        private readonly formBuilder: FormBuilder,
+        private readonly formBuilder: UntypedFormBuilder,
         private readonly evidenceServ: EvidencesCatalogService,
         private readonly ref: MatDialogRef<never>,
         private users: UsersService,

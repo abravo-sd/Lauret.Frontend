@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import {
     AccreditorsService,
     CampusService,
@@ -38,7 +38,7 @@ import { ReporteDTO } from './../../utils/models/reporte.dto';
     styleUrls: ['./reports.component.scss'],
 })
 export class ReportsComponent implements OnInit {
-    reportForm: FormGroup;
+    reportForm: UntypedFormGroup;
     filters: TablePaginatorSearch;
     accreditorList: AcreditadoraDTOV1[];
     careersList: CarreraDTOV1[];
@@ -50,7 +50,7 @@ export class ReportsComponent implements OnInit {
     cycleList: Ciclo[];
 
     constructor(
-        private readonly formBuilder: FormBuilder,
+        private readonly formBuilder: UntypedFormBuilder,
         private readonly accreditors: AccreditorsService,
         private readonly schoolCareer: SchoolCareerService,
         private readonly campus: CampusService,

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AccreditorsService, SchoolCareerService } from 'src/app/core/services';
 import {
@@ -17,14 +17,14 @@ import {
     styleUrls: ['./criteria-copy.component.scss'],
 })
 export class CriteriaCopyComponent {
-    copyForm: FormGroup;
+    copyForm: UntypedFormGroup;
     filters: TablePaginatorSearch;
     accreditorList: AcreditadoraDTOV1[];
     processList: AcreditadoraProcesoDTOV1[];
     careersList: CarreraDTO[];
 
     constructor(
-        private readonly formBuilder: FormBuilder,
+        private readonly formBuilder: UntypedFormBuilder,
         private readonly accreditors: AccreditorsService,
         private readonly schoolCareer: SchoolCareerService,
         private readonly matDialogRef: MatDialogRef<boolean>

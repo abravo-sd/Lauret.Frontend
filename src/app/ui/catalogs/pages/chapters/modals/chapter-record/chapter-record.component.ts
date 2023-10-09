@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable, Subscription } from 'rxjs';
 import { ValidatorService } from 'src/app/shared/validators';
@@ -14,7 +14,7 @@ import { TransitionCheckState } from '@angular/material/checkbox';
     styleUrls: ['./chapter-record.component.scss'],
 })
 export class ChapterRecordComponent implements OnInit, OnDestroy {
-    chapterForm: FormGroup;
+    chapterForm: UntypedFormGroup;
     typeModal: 'edit' | 'add';
     subscription: Subscription;
     status: boolean;
@@ -22,7 +22,7 @@ export class ChapterRecordComponent implements OnInit, OnDestroy {
     constructor(
         @Inject(MAT_DIALOG_DATA) public readonly data: CapituloDTOV1,
         private readonly matDialogRef: MatDialogRef<boolean>,
-        private readonly formBuilder: FormBuilder,
+        private readonly formBuilder: UntypedFormBuilder,
         private readonly validator: ValidatorService,
         private readonly chapter: ChapterService
     ) {

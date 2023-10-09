@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSelectChange } from '@angular/material/select';
 import { Subscription } from 'rxjs';
@@ -35,7 +35,7 @@ export enum ModalTitle {
 })
 export class ResponsibilityAreasRecordComponent implements OnInit, OnDestroy {
     title: ModalTitle;
-    responsibilityForm: FormGroup;
+    responsibilityForm: UntypedFormGroup;
     levelAttentionList: NivelAtencionDTO[];
     levelModalityList: NivelModalidadDTOV1[];
     responsabilityAreaList: AreaResponsableDTOV1[];
@@ -54,7 +54,7 @@ export class ResponsibilityAreasRecordComponent implements OnInit, OnDestroy {
         @Inject(MAT_DIALOG_DATA) public readonly areaResponsableData: AreaResponsableData,
         private readonly ref: MatDialogRef<never>,
         private readonly matDialogRef: MatDialogRef<boolean>,
-        private readonly formBuilder: FormBuilder,
+        private readonly formBuilder: UntypedFormBuilder,
         private readonly levelAttention: LevelAttentionService,
         private readonly responsibilityAreas: ResponsibilityAreasService,
         private readonly validator: ValidatorService,
