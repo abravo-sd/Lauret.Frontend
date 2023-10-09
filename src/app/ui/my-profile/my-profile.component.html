@@ -1,0 +1,26 @@
+<div class="container-fluid p-4">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Mi perfil</h1>
+            <p><strong>Nombre: </strong> {{ users.userSession.nombre }}</p>
+            <p><strong>Correo: </strong> {{ users.userSession.correo }}</p>
+            <p><strong>Perfil: </strong> {{ users.userSession.perfil }}</p>
+            <p><strong>Region: </strong> {{ users.userSession.region }}</p>
+            <p><strong>Campus: </strong> {{ users.userSession.campus }}</p>
+            <ul>
+                <li class="mb-2"><strong>Area Responsable: </strong> {{ users.userSession.areaResponsable }}</li>
+                <ol style= "list-style-type: circle;" class="ml-5">
+                    <li class="mb-2 ml-5">
+                        <strong>Año: </strong>
+                    </li>
+                    <li class="mb-2 ml-5">
+                        <strong>Ciclo: </strong>
+                    </li>
+                    <li class="mb-2 ml-5">
+                        <strong>Proceso: </strong>
+                    </li>
+                </ol>
+            </ul>
+        </div>
+    </div>
+</div>

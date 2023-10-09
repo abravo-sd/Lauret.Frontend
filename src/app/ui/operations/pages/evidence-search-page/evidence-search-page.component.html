@@ -1,0 +1,129 @@
+<mat-toolbar color="primary" role="heading" class="mat-elevation-z6">
+  <span class="sm:hidden">Laureate | Acreditadoras</span>
+  <span class="hidden sm:inline">Laureate | Sistema Integral del Aseguramiento de la Calidad</span>
+</mat-toolbar>
+<div class="container-fluid px-4">
+  <div class="row mt-2">
+    <div class="col-md-12 p-0">
+      <h1 class="title-page mt-2">Búsqueda de evidencias</h1>
+    </div>
+    <mat-divider></mat-divider>
+  </div>
+  <form autocomplete="off" [formGroup]="evidenceForm">
+    <div class="row pt-4">
+      <div class="col-md-4">
+        <div class="row">
+          <mat-form-field appearance="outline" class="col-md-12 mt-1">
+            <mat-label>Nombre de link</mat-label>
+            <input matInput required formControlName="evidenceLink" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="col-md-12 mt-1">
+            <mat-label>Área</mat-label>
+            <input matInput required formControlName="areaResponsabilidadId" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="col-md-12 mt-1">
+            <mat-label>Sub áreas aplicadas</mat-label>
+            <mat-select multiple formControlName="subareas" (selectionChange)="changeFilter()">
+              <mat-option [value]="item.subareaId" *ngFor="let item of subareaList">{{ item.nombre }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="col-md-12 mt-1">
+            <mat-label>Campus aplicados</mat-label>
+            <mat-select multiple formControlName="campuses" (selectionChange)="changeFilter()">
+              <mat-option [value]="item.campusId" *ngFor="let item of campusList">{{ item.nombre }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="col-md-6 mt-1">
+            <mat-label>Años</mat-label>
+            <mat-select multiple formControlName="anios">
+              <mat-option [value]="item" *ngFor="let item of yearList">{{ item }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="col-md-6 mt-1">
+            <mat-label>Ciclo</mat-label>
+            <mat-select multiple formControlName="ciclos">
+              <mat-option [value]="item" *ngFor="let item of cycleList">{{ item }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-6"></div>
+              <div class="col-md-6">
+                <button type="button" mat-raised-button class="mt-1 w-100" color="primary" (click)="clearFilters()" [disabled]="subareaList.length === 1 && campusList.length === 1">
+                  <mat-icon>autorenew</mat-icon>
+                  Limpiar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="row pb-4">
+          <div class="col-md-12 container__table mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" class="table mb-0">
+              <ng-container matColumnDef="id">
+                <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Evidencia</th>
+                <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+                  {{ row.nombreArchivo }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="extension">
+                <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Extensión</th>
+                <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+                  {{ row.esUrl ? '' : '.' + row.mime }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="url">
+                <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>URL</th>
+                <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+                  {{ row.esUrl ? 'Si' : 'No' }}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="edit">
+                <th mat-header-cell class="table__header table__cell--actions" *matHeaderCellDef>Acciones</th>
+                <td mat-cell class="table__cell table__cell--actions" *matCellDef="let row; let index = index">
+                  <div class="d-flex justify-content-center">
+                    <button mat-button matTooltip="Ver" (click)="showFile(row)" [disabled]="!extensionAvailable.includes(row.mime) && !row.esUrl">
+                      <mat-icon
+                        [ngClass]="{
+                          disabled__icon: !extensionAvailable.includes(row.mime) && !row.esUrl,
+                          show__icon: extensionAvailable.includes(row.mime) || row.esUrl
+                        }"
+                        >visibility</mat-icon
+                      >
+                    </button>
+
+                    <button mat-button matTooltip="Descargar" (click)="downloadFile(row)" [disabled]="extensionAvailable.includes(row.mime) || row.esUrl">
+                      <mat-icon
+                        [ngClass]="{
+                          disabled_icon: extensionAvailable.includes(row.mime) && !row.esUrl,
+                          history__icon: !extensionAvailable.includes(row.mime) && !row.esUrl
+                        }"
+                        >download</mat-icon
+                      >
+                    </button>
+                  </div>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="['id', 'extension', 'url', 'edit']"></tr>
+              <tr mat-row *matRowDef="let row; columns: ['id', 'extension', 'url', 'edit']"></tr>
+            </table>
+            <ng-template [ngIf]="dataSource.data.length === 0">
+              <p class="empty-table mt-4">No hay datos para mostrar</p>
+            </ng-template>
+            <mat-paginator #paginator class="ml-auto" showFirstLastButtons></mat-paginator>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

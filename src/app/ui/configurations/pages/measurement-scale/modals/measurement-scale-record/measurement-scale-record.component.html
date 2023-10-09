@@ -1,0 +1,110 @@
+<form [formGroup]="measurementScaleRecordForm" (ngSubmit)="submit()">
+    <h1 mat-dialog-title>{{ title }}</h1>
+    <mat-divider> </mat-divider>
+    <mat-dialog-content>
+        <div class="container pt-4">
+            <div class="row">
+                <mat-form-field appearance="outline" class="col-md-6 mt-1">
+                    <mat-label>Clave y Nombre Indicador SIAC</mat-label>
+                    <mat-select required formControlName="confIndicadorSiacId"
+                        (selectionChange)="onIndicatorChange($event)">
+                        <mat-option *ngFor="let item of indicatorsList" [value]="item.id">
+                            {{ item.claveIndicadorSiac }} - {{ item.indicadorSiac }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="measurementScaleRecordForm.get('confIndicadorSiacId').hasError('required')">Este
+                        campo es
+                        obligatorio</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="col-md-3">
+                    <mat-label>Año</mat-label>
+                    <input matInput name="anio" formControlName="anio" />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="col-md-3">
+                    <mat-label>Ciclo</mat-label>
+                    <input matInput name="ciclo" formControlName="ciclo" />
+                </mat-form-field>
+                <!-- <input hidden="true" name="idCiclo" formControlName="idCiclo"> -->
+
+            </div>
+            <div class="row">
+                <mat-form-field appearance="outline" class="col-md-6">
+                    <mat-label>Institución</mat-label>
+                    <input matInput name="institucion" formControlName="institucion" />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="col-md-6 mt-1">
+                    <mat-label>Nivel/Modalidad</mat-label>
+                    <input matInput name="nivelModalidad" formControlName="nivelModalidad" />
+                </mat-form-field>
+                
+            </div>
+
+            <div class="row">
+                <mat-form-field appearance="outline" class="col-md-4">
+                    <mat-label>Proceso</mat-label>
+                    <input matInput name="proccess" formControlName="proccess" />
+                </mat-form-field>
+                <input hidden="true" name="proceso" formControlName="proceso"> 
+                <mat-form-field appearance="outline" class="col-md-8">
+                    <mat-label>Componente</mat-label>
+                    <input matInput name="componente" formControlName="componente" />
+                </mat-form-field>
+            </div>
+            <div class="row" style="padding-left: 14px; padding-right: 14px;">
+                <div class="col-md-12 border rounded-lg">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="col-md-1 scale__title">
+                                    Escala
+                                </th>
+                                <th class="col-md-5 scale__title">
+                                    Descripción
+                                </th>
+                                <th class="col-md-6 scale__title">
+                                    Condición
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr formArrayName="escenarios"
+                                *ngFor="let control of escenariosListArr.controls; let i = index">
+                                <td class="scale_tbody_td">
+                                    {{ control.get('escala').value }}
+                                </td>
+        
+                                <td class="scale_tbody_td">
+                                    {{ control.get('nombre').value}}
+                                </td>
+                                <td class="scale_tbody_td">
+                                    <div class="row" [formGroupName]="i">
+                                        <mat-form-field appearance="outline" class="col-md-12">
+                                            <input matInput required name="condicion" formControlName="condicion" />
+                                            <mat-error *ngIf="control.get('condicion').hasError('required')">
+                                                Este campo es obligatorio
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mt-2">
+                    <mat-checkbox formControlName="activo"> Activo </mat-checkbox>
+                </div>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center" class="pb-4">
+        <button type="submit" mat-raised-button class="mt-3" color="primary" [disabled]="!measurementScaleRecordForm.valid || disabled || !edit">
+            Guardar
+        </button>
+        <button type="button" mat-raised-button class="mt-3" (click)="closeModalByConfimation()">Cancelar</button>
+    </mat-dialog-actions>
+</form>

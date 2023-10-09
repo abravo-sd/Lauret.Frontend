@@ -1,0 +1,219 @@
+<form [formGroup]="cfgIndicatorRecordForm" (ngSubmit)="submit()">
+    <h1 mat-dialog-title>{{ title }}</h1>
+    <mat-divider></mat-divider>
+    <mat-dialog-content>
+        <mat-tab-group>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    Indicador SIAC
+                </ng-template>
+                <ng-container *ngTemplateOutlet="configuration"></ng-container>
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    Carga de Archivos
+                </ng-template>
+                <ng-container *ngTemplateOutlet="fileUpload"></ng-container>
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    Listado de Archivos
+                </ng-template>
+                <ng-container *ngTemplateOutlet="fileList"></ng-container>
+            </mat-tab>
+        </mat-tab-group>
+        <ng-template #configuration>
+            <div class="container mt-4">
+                <div class="row">
+                    <mat-form-field appearance="outline" class="col-md-6">
+                        <mat-label>Clave - Nombre Elemento Evaluación</mat-label>
+                        <mat-select required #confElementoEvaluacionId name="confElementoEvaluacionId" formControlName="confElementoEvaluacionId"
+                            (selectionChange)="onEvaluationElementChange($event)">
+                            <!-- **Send user input to TS** -->
+                            <!-- <input matInput #ElementoEvaluacionSearch type="text" (keyup)="onElementEvaluationKeyUp($event)" class="input-search" placeholder="Buscar..."> -->
+                            <mat-option *ngFor="let item of searchEvaluationElementList" [value]="item.id">
+                                {{ item.claveElementoEvaluacion }} - {{ item.elementoEvaluacion }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="cfgIndicatorRecordForm.get('confElementoEvaluacionId').hasError('required')">Este campo es obligatorio</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-md-3">
+                        <mat-label>Año</mat-label>
+                        <input matInput name="anio" formControlName="anio" />
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-md-3">
+                        <mat-label>Ciclo</mat-label>
+                        <input matInput name="ciclo" formControlName="ciclo" />
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field appearance="outline" class="col-md-3">
+                        <mat-label>Institución</mat-label>
+                        <input matInput name="institucion" formControlName="institucion" />
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-md-3">
+                        <mat-label>Proceso</mat-label>
+                        <input matInput name="proccessString" formControlName="proccessString" />
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-md-4">
+                        <mat-label>Área Responsable</mat-label>
+                        <input matInput name="areaResponsable" formControlName="areaResponsable" />
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-md-2">
+                        <mat-label>Tipo de Área Responsable</mat-label>
+                        <input matInput name="responsibilityAreaType" formControlName="responsibilityAreaType" />
+                    </mat-form-field>
+                    <input hidden="true" name="catPeriodoEvaluacionId" formControlName="catPeriodoEvaluacionId">
+                </div>
+                <div class="row">
+                    <mat-form-field appearance="outline" class="col-md-6">
+                        <mat-label>Nivel / Modalidad</mat-label>
+                        <input matInput name="nivelModalidad" formControlName="nivelModalidad" />
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-md-6">
+                        <mat-label>Indicador SIAC </mat-label>
+                        <mat-select required name="catIndicadorSiacId" formControlName="catIndicadorSiacId">
+                            <mat-option *ngFor="let item of indicatorSiacList" [value]="item.id">
+                                {{ item.nombre }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="cfgIndicatorRecordForm.get('catIndicadorSiacId').hasError('required')">
+                            Este campo es obligatorio
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field appearance="outline" class="col-md-4">
+                        <mat-label>Componente UVM</mat-label>
+                        <mat-select name="componenteUvmId" formControlName="componenteUvmId" (selectionChange)="onComponenteUvmChange($event)">
+                            <mat-option *ngFor="let item of componenteUVMList" [value]="item.id">
+                                {{ item.nombreComponenteUvm }}
+                            </mat-option>
+                        </mat-select>
+                        <!-- <mat-error *ngIf="cfgIndicatorRecordForm.get('componenteUvmId').hasError('required')">
+                            Este campo es obligatorio
+                        </mat-error> -->
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-md-4">
+                        <mat-label>Indicador UVM</mat-label>
+                        <mat-select name="indicadorUvmId" formControlName="indicadorUvmId" (selectionChange)="onIndicatorUvmChange($event)">
+                            <mat-option *ngFor="let item of indicadorUVMList" [value]="item.id">
+                                {{ item.nombreIndicadorUvm }}
+                            </mat-option>
+                        </mat-select>
+                        <!-- <mat-error *ngIf="cfgIndicatorRecordForm.get('indicadorUvmId').hasError('required')">
+                            Este campo es obligatorio
+                        </mat-error> -->
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-md-4">
+                        <mat-label>Subindicador UVM</mat-label>
+                        <mat-select name="subindicadorUvmId" formControlName="subindicadorUvmId">
+                            <mat-option *ngFor="let item of subIndicadorUVMList" [value]="item.id">
+                                {{ item.nombreSubIndicadorUvm }}
+                            </mat-option>
+                        </mat-select>
+                        <!-- <mat-error *ngIf="cfgIndicatorRecordForm.get('subindicadorUvmId').hasError('required')">
+                            Este campo es obligatorio
+                        </mat-error> -->
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field appearance="outline" class="col-md-4">
+                        <mat-label>Normativa</mat-label>
+                        <mat-select name="catNormativaId" formControlName="catNormativaId">
+                            <mat-option *ngFor="let item of normativeList" [value]="item.id">
+                                {{ item.nombre }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="cfgIndicatorRecordForm.get('catNormativaId').hasError('required')">
+                            Este campo es obligatorio
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-md-4">
+                        <mat-label>Clave - Evidencia</mat-label>
+                        <mat-select name="catEvidenciaId" formControlName="catEvidenciaId" (selectionChange)="onEvidenceChange($event)">
+                            <mat-option *ngFor="let item of evicenceList" [value]="item.id">
+                                {{ item.clave }} - {{ item.nombre }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="cfgIndicatorRecordForm.get('catEvidenciaId').hasError('required')">
+                            Este campo es obligatorio
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-md-2" [matTooltip]="evidenceDescription.value ? evidenceDescription.value : null">
+                        <mat-label>Descripción Evidencia</mat-label>
+                        <input matInput #evidenceDescription name="evidenceDescription" formControlName="evidenceDescription" />
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-md-2" [matTooltip]="evidenceAmount.value ? evidenceAmount.value : null">
+                        <mat-label>Cantidad Evidencia</mat-label>
+                        <input matInput #evidenceAmount name="evidenceAmount" formControlName="evidenceAmount" />
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-checkbox class="ml-1" formControlName="activo" tabindex="-1"> Activo</mat-checkbox>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template #fileUpload>
+            <div class="mt-4">
+                <ngx-file-drag-drop
+                required
+                emptyPlaceholder="Arrastre y coloque los archivos que desea adjuntar"
+                class="mt-3 Drag_Style"
+                activeBorderColor="#3F51B5"
+                [multiple]="true"
+                (valueChanged)="setFilesForUpload($event)"
+              ></ngx-file-drag-drop>
+            </div>
+            <input hidden="true" name="files" formControlName="files">
+        </ng-template>
+        <ng-template #fileList id="fileList">
+            <div class="col-md-12 container container__table mat-elevation-z8">
+                <table mat-table class="table mb-0" [dataSource]="data.listaArchivos">
+                    <ng-container matColumnDef="file">
+                        <th mat-header-cell class="table__header" *matHeaderCellDef>Archivo</th>
+                        <td mat-cell class="table__cell" *matCellDef="let row">
+                            {{ row.fileName }}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell class="table__header table__cell--actions" *matHeaderCellDef>Acciones</th>
+                        <td mat-cell class="table__cell table__cell--actions" *matCellDef="let row; let index = index">
+                            <div class="d-flex justify-content-center">
+                                <button mat-button type="button" matTooltip="Descargar" (click)="downloadFile(row)">
+                                    <mat-icon class="download__icon">cloud_download</mat-icon>
+                                </button>
+                                <!-- <button mat-button type="button" matTooltip="Descargar">
+                                    <mat-icon class="download__icon">cloud_download</mat-icon>
+                                </button> -->
+                                <!-- <button mat-button matTooltip="Eliminar" (click)="deleteFile(row)">
+                                    <mat-icon class="delete__icon">delete_forever</mat-icon>
+                                </button> -->
+                            </div>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row
+                        *matHeaderRowDef="['file', 'actions']">
+                    </tr>
+                    <tr mat-row
+                        *matRowDef="let row; columns: ['file', 'actions']">
+                    </tr>
+                </table>
+                <ng-template [ngIf]="data.listaArchivos.length === 0">
+                    <p class="empty-table mt-4">No hay datos para mostrar</p>
+                </ng-template>
+                <!-- <mat-paginator #paginator class="ml-auto" showFirstLastButtons
+                    (page)="paginatorChange($event)"></mat-paginator> -->
+            </div>
+        </ng-template>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center" class="pb-4">
+        <button type="submit" mat-raised-button class="mt-3" color="primary"
+            [disabled]="!cfgIndicatorRecordForm.valid || disabled || !edit">
+            Guardar
+        </button>
+        <button type="button" mat-raised-button class="mt-3" (click)="closeModalByConfimation()">Cancelar</button>
+    </mat-dialog-actions>
+</form>

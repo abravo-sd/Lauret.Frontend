@@ -1,0 +1,97 @@
+<div class="col-md-12">
+  <div class="row d-flex">
+    <h1 mat-dialog-title class="col-md-11">Ejecución de autoevaluación</h1>
+    <button type="button" class="col-md-1 mb-2" (click)="closeModalByConfimation()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div class="row">
+    <mat-form-field appearance="outline" class="col-md-5">
+      <mat-label>Componente</mat-label>
+      <mat-select required [disabled]="componentList.length === 0">
+        <mat-option *ngFor="let item of componentList" [value]="item.componenteId"> {{ item.nombre }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="col-md-5">
+      <mat-label>Elemento de evaluación</mat-label>
+      <mat-select required [disabled]="evaluationelementList.length === 0">
+        <mat-option *ngFor="let item of evaluationelementList" [value]="item.elementoEvaluacionId">
+          {{ item.nombreEvidencia }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+    <div class="d-flex col-md-1 ml-2 mb-3">
+      <button mat-button matTooltip="Editar">
+        <mat-icon class="edit__icon">edit</mat-icon>
+      </button>
+
+      <button mat-button matTooltip="Guardar">
+        <mat-icon class="edit__icon col-md-2">save</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+  <mat-dialog-content>
+    <div class="row">
+      <div class="col-md-12 container__table mat-elevation-z4 mb-3">
+        <table mat-table [dataSource]="dataSource" class="table mb-0">
+          <ng-container matColumnDef="scenery">
+            <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Escenario</th>
+            <td
+              mat-cell
+              class="table__cell-id text-left table_colum_size"
+              *matCellDef="let row"
+              [style.background-color]="row.color"
+            >
+              {{ row.escenario }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="value">
+            <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Valor</th>
+            <td
+              class="ml-2"
+              mat-cell
+              [style.background-color]="row.color"
+              class="table__cell table__cell-name"
+              *matCellDef="let row"
+            >
+              {{ row.valor }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="description">
+            <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Descripción</th>
+            <td mat-cell class="table__cell table__cell-name" *matCellDef="let row"></td>
+          </ng-container>
+
+          <ng-container matColumnDef="viewEvidence">
+            <th mat-header-cell class="table__header table__cell--actions" *matHeaderCellDef>
+              <u>Ver evidencias</u>
+            </th>
+
+            <mat-radio-group aria-label="Select an option">
+              <td mat-cell class="table__cell table__cell--actions" *matCellDef="let row; let index = index">
+                <div class="col-md-12">
+                  <div class="row d-flex justify-content-center">
+                    <input type="text" class="col-md-6 ipunt_size" placeholder="-" />
+                    <div class="d-flex justify-content-center col-md-6">
+                      <mat-radio-button [value]="row"></mat-radio-button>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </mat-radio-group>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="['scenery', 'value', 'description', 'viewEvidence']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['scenery', 'value', 'description', 'viewEvidence']"></tr>
+        </table>
+        <!-- <ng-template [ngIf]="dataSource.data.length === 0">
+        <p class="empty-table mt-4">No hay datos para mostrar</p>
+      </ng-template> -->
+        <!-- <mat-paginator #paginator class="ml-auto" showFirstLastButtons (page)="paginatorChange($event)"></mat-paginator> -->
+      </div>
+    </div>
+  </mat-dialog-content>
+</div>

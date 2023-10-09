@@ -1,0 +1,148 @@
+<form novalidate [formGroup]="userRecordForm" (ngSubmit)="submit()">
+    <h1 mat-dialog-title>{{ title }}</h1>
+    <mat-divider></mat-divider>
+    <mat-dialog-content>
+        <div class="container mt-4">
+            <div class="row">
+                <mat-form-field appearance="outline" class="col-md-11">
+                    <mat-label>Correo</mat-label>
+                    <input matInput required name="correo" formControlName="correo" (keyup.enter)="searchUser()" />
+                    <mat-error *ngIf="userRecordForm.get('correo').hasError('required')">
+                        Este campo es obligatorio
+                    </mat-error>
+                    <mat-error *ngIf="userRecordForm.get('correo').hasError('email')">
+                        Cuenta de correo incorrecta
+                    </mat-error>
+                </mat-form-field>
+                <div class="col-md-1 d-flex align-items-center justify-content-center">
+                    <button type="button" *ngIf="!userData && !userExists" mat-icon-button matTooltip="Buscar usuario" (click)="searchUser()">
+                        <mat-icon [ngClass]="{'find__icon': !userExists, 'disabled__icon': userExists }">
+                            person_search
+                        </mat-icon>
+                    </button>
+                    <button type="button" *ngIf="!userData && userExists" mat-icon-button matTooltip="Deshacer" (click)="undoUserSearch()">
+                        <mat-icon class="find__icon">
+                            backspace
+                        </mat-icon>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <mat-form-field appearance="outline" class="col-md-6">
+                    <mat-label>Nombre (s)</mat-label>
+                    <input matInput name="nombre" formControlName="nombre" />
+                    <!-- <mat-error *ngIf="userRecordForm.get('nombre').hasError('required')">
+                        Este campo es obligatorio
+                    </mat-error>
+                    <mat-error *ngIf="userRecordForm.get('nombre').hasError('maxlength')">
+                        El valor máximo de caracteres es 100
+                    </mat-error> -->
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-md-6">
+                    <mat-label>Apellido (s)</mat-label>
+                    <input matInput name="apellidos" formControlName="apellidos" />
+                    <!-- <mat-error *ngIf="userRecordForm.get('apellidos').hasError('required')">
+                        Este campo es obligatorio
+                    </mat-error>
+                    <mat-error *ngIf="userRecordForm.get('apellidos').hasError('maxlength')">
+                        El valor máximo de caracteres es 200
+                    </mat-error> -->
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field appearance="outline" class="col-md-6">
+                    <mat-label>Nivel de revisión</mat-label>
+                    <mat-select name="catNivelRevisionId" formControlName="catNivelRevisionId" required>
+                        <mat-option [value]="1">Administrador</mat-option>
+                        <mat-option [value]="2">Usuario</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="userRecordForm.get('catNivelRevisionId').hasError('required')">
+                        Este campo es obligatorio
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-md-6">
+                    <mat-label>Perfil</mat-label>
+                    <mat-select name="tblPerfilId" formControlName="tblPerfilId" required>
+                        <mat-option *ngFor="let item of profileList" [value]="item.id">
+                            {{ item.nombre }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="userRecordForm.get('tblPerfilId').hasError('required')">
+                        Este campo es obligatorio
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field appearance="outline" class="col-md-6">
+                    <mat-label>Región</mat-label>
+                    <mat-select name="catRegionId" formControlName="catRegionId" required (selectionChange)="onRegionChange( $event)">
+                        <mat-option *ngFor="let item of regionsList" [value]="item.id"> {{ item.nombre }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="userRecordForm.get('catRegionId').hasError('required')">
+                        Este campo es obligatorio
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-md-6">
+                    <mat-label>Campus</mat-label>
+                    <mat-select name="catCampusId" formControlName="catCampusId"  required>
+                        <mat-option *ngFor="let item of campusList" [value]="item.id"> {{ item.nombre }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="userRecordForm.get('catCampusId').hasError('required')">
+                        Este campo es bligatorio
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <!-- <div class="row">
+                <div class="col-md-6 mt-1">
+                    <div class="container border" style="border-radius: 4px;">
+                        <mat-list role="list" class="col-md-12">
+                            <mat-list-item role="listitem" *ngIf="levelModalityList.length == 0">
+                                Nivel / Modalidad
+                            </mat-list-item>
+                            <mat-list-item role="listitem" *ngFor="let item of levelModalityList">
+                                {{ item }}
+                            </mat-list-item>
+                        </mat-list>
+                    </div>
+                </div>
+                <input type="hidden" name="levelModalityIds" formControlName="levelModalityIds">
+            </div> -->
+            <div class="row">
+                <mat-form-field appearance="outline" class="col-md-6">
+                    <mat-label>Área responsable</mat-label>
+                    <mat-select name="responsbilityArea" formControlName="responsbilityArea" multiple required>
+                        <mat-option *ngFor="let item of responsbilityAreaList" [value]="item.id">
+                            {{ item.nombre }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="userRecordForm.get('responsbilityArea').hasError('required')">
+                        Este campo es obligatorio
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-md-6">
+                    <mat-label>Área corporativa</mat-label>
+                    <mat-select name="corporateArea" formControlName="corporateArea" multiple required>
+                        <mat-option *ngFor="let item of coporateAreaList" [value]="item.id">
+                            {{ item.nombre }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="userRecordForm.get('corporateArea').hasError('required')">
+                        Este campo es obligatorio
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row col-md-12">
+                <div class="col-md-12 mt-2 align-content-end">
+                    <mat-checkbox name="activo" formControlName="activo" [disabled]="!checkPermission(2)"> Activo </mat-checkbox>
+                </div>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center" class="pb-4">
+        <button type="submit" mat-raised-button class="mt-3" color="primary"
+            [disabled]="!userRecordForm.valid || !userRecordForm.dirty || disabled || !edit || !userExists">
+            Guardar
+        </button>
+        <button type="button" mat-raised-button class="mt-3" (click)="closeModalByConfimation()">Cancelar</button>
+    </mat-dialog-actions>
+</form>

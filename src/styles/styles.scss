@@ -1,0 +1,199 @@
+@import "theme";
+@import "variables";
+@import "swiper/scss";
+// @import "swiper/scss/lazy";
+// @import "swiper/scss/pagination";
+// @import "swiper/scss/navigation";
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($NG-SIAC-theme);
+
+// Plus imports for other components in your app.
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    overflow-y: hidden;
+}
+
+.alert__btn-cancel {
+    color: rgb(34, 34, 34) !important;
+}
+
+.title-modal {
+    text-align: center;
+    color: mat-color($primary);
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.save__btn {
+    background-color: #59bb54;
+    color: white;
+}
+
+.cancel__btn {
+    background-color: #f1c40f;
+}
+
+.show__icon {
+    color: #00b0dc;
+}
+
+.edit__icon {
+    color: #59bb54;
+}
+
+.history__icon {
+    color: #8e44ad;
+}
+
+.delete__icon {
+    color: #cb4335;
+}
+
+.disabled__icon {
+    color: #8a94a6;
+}
+
+.download__icon {
+    color: mat-color($primary)
+}
+
+.find__icon {
+    color: mat-color($primary)
+}
+
+.upload__btn {
+    background-color: #384c8b;
+    color: white;
+}
+
+.load__btn {
+    background-color: #384c8b;
+    color: white;
+}
+
+.container__table {
+    overflow-x: auto;
+    background-color: white;
+}
+
+.table,
+.form-field {
+    width: 100%;
+}
+
+.table {
+    margin: 16px 0;
+}
+
+.table__header {
+    padding-left: 8px;
+    padding-right: 8px;
+    font-size: 16px;
+    text-align: center !important;
+}
+
+.table__cell {
+    padding: 8px;
+    word-wrap: break-word;
+    text-align: center;
+}
+
+.table__cell--select {
+    width: 100px;
+}
+
+.table__cell--actions {
+    width: 100px;
+    text-align: center !important;
+}
+
+.empty-table {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 8px;
+}
+
+.mat-tooltip {
+    font-size: 10px;
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+::-webkit-scrollbar-track {
+    background: none;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 20px;
+}
+
+.link-book {
+    font-size: 18px;
+    font-weight: bold;
+    color: #f44336;
+    text-decoration: underline #f44336;
+}
+
+.table-editor table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table-editor td,
+.table-editor th {
+    border: 1px solid #000000;
+    text-align: left;
+    padding: 8px;
+}
+
+.table-editor tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.angular-editor-textarea {
+    padding: 25px !important;
+}
+
+angular-editor ul {
+    list-style: circle !important;
+    padding-left: 2em;
+}
+
+angular-editor ol {
+    list-style-type: decimal !important;
+    padding-left: 2em;
+}
+
+.mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-label,
+.mat-input-element:disabled {
+    color: black !important;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.mat-form-field-wrapper {
+    padding-bottom: 4;
+}

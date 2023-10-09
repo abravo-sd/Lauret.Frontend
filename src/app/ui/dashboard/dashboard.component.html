@@ -1,0 +1,413 @@
+<mat-toolbar color="primary" role="heading" class="mat-elevation-z6">
+    <!-- <button *ngIf="!isDesktopMode" mat-icon-button class="sm:invisible" aria-label="Menu for smaller screens"
+        (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+    </button> -->
+    <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span class="sm:hidden">Laureate | SIAC</span>
+    <span class="hidden sm:inline">Laureate | Sistema Integral del Aseguramiento de la Calidad</span>
+    <div class="grow"></div>
+    <span class="text-sm">Hola {{ currentUserName }}</span>
+    <button mat-icon-button class="" aria-label="Cerrar sesión" matTooltip="Cerrar sesión" (click)="logout()">
+        <mat-icon>logout</mat-icon>
+    </button>
+</mat-toolbar>
+<mat-sidenav-container>
+    <mat-sidenav #sidenav [ngClass]="{
+      'sidenav--desktop': isDesktopMode,
+      'sidenav--mobile': !isDesktopMode
+    }" [mode]="isDesktopMode ? 'side' : 'over'" [opened]="false" [disableClose]="true" [position]="'start'">
+        <mat-list class="pt-0">
+
+            <!-- <mat-divider></mat-divider> -->
+            <mat-list-item matRipple routerLink="mi-perfil" routerLinkActive="active" (click)="sidenav.toggle()">
+                <span class="full-width menu__text">Mi perfil</span>
+            </mat-list-item>
+
+            <mat-list-item matRipple routerLink="welcome-screen" routerLinkActive="active" (click)="sidenav.toggle()">
+                <span class="full-width menu__text">Bienvenida</span>
+            </mat-list-item>
+
+            <ng-container *appPermission="'welcome-settings'">
+                <mat-list-item matRipple routerLink="welcome-settings" routerLinkActive="active" (click)="sidenav.toggle()">
+                    <span class="full-width menu__text">Configuración Bienvenida</span>
+                </mat-list-item>
+            </ng-container>
+
+            <mat-divider></mat-divider>
+
+            <ng-container *appPermission="'catalogo'">
+                <mat-list-item matRipple [ngClass]="{
+            active: getCurrentRoute.includes('/catalogo')
+          }" (click)="showSubmenuCatalogs = !showSubmenuCatalogs">
+                    <span class="full-width menu__text">Catálogos</span>
+                    <mat-icon class="menu__button" [ngClass]="{ rotated: showSubmenuCatalogs }">expand_more</mat-icon>
+                </mat-list-item>
+            </ng-container>
+
+            <ng-container *ngIf="showSubmenuCatalogs">
+                <div class="submenu" [ngClass]="{ expanded: showSubmenuCatalogs }">
+                    <!-- i n i c i a   c a t a l o g o  s -->
+                    <ng-container *appPermission="'catalogo/regiones'">
+                        <mat-list-item matRipple routerLink="catalogo/regiones" routerLinkActive="active"
+                            (click)="sidenav.toggle()">
+                            <span class="full-width menu__text">Regiones</span>
+                        </mat-list-item>
+                    </ng-container>
+                    
+                    <ng-container *appPermission="'catalogo/instituciones'">
+                        <mat-list-item matRipple routerLink="catalogo/instituciones" routerLinkActive="active"
+                            (click)="sidenav.toggle()">
+                            <span class="full-width menu__text">Instituciones</span>
+                        </mat-list-item>
+                    </ng-container>
+
+                    <ng-container *appPermission="'catalogo/perfiles'">
+                        <mat-list-item matRipple routerLink="catalogo/perfiles" routerLinkActive="active"
+                            (click)="sidenav.toggle()">
+                            <span class="full-width menu__text">Perfiles</span>
+                        </mat-list-item>
+                    </ng-container>
+
+                    <ng-container *appPermission="'catalogo/nivel-modalidad'">
+                        <mat-list-item matRipple routerLink="catalogo/nivel-modalidad" routerLinkActive="active"
+                            (click)="sidenav.toggle()">
+                            <span class="full-width menu__text">Nivel / Modalidad</span>
+                        </mat-list-item>
+                    </ng-container>
+
+                    <ng-container *appPermission="'catalogo/periodo-evaluacion'">
+                        <mat-list-item matRipple routerLink="catalogo/periodo-evaluacion" routerLinkActive="active"
+                            (click)="sidenav.toggle()">
+                            <span class="full-width menu__text">Periodo de Evaluación</span>
+                        </mat-list-item>
+                    </ng-container>
+
+                    <ng-container *appPermission="'catalogo/campus'">
+                        <mat-list-item matRipple routerLink="catalogo/campus" routerLinkActive="active"
+                            (click)="sidenav.toggle()">
+                            <span class="full-width menu__text">Campus</span>
+                        </mat-list-item>
+                    </ng-container>
+
+                    <ng-container *appPermission="'catalogo/areas-responsabilidad'">
+                        <mat-list-item matRipple routerLink="catalogo/areas-responsabilidad" routerLinkActive="active"
+                            (click)="sidenav.toggle()">
+                            <span class="full-width menu__text">Áreas responsables</span>
+                        </mat-list-item>
+                    </ng-container>
+
+                    <ng-container *appPermission="'catalogo/areas-corporativas'">
+                        <mat-list-item matRipple routerLink="catalogo/areas-corporativas" routerLinkActive="active"
+                            (click)="sidenav.toggle()">
+                            <span class="full-width menu__text">Áreas corporativas</span>
+                        </mat-list-item>
+                    </ng-container>
+
+                    <ng-container *appPermission="'catalogo/subareas-corporativas'">
+                        <mat-list-item matRipple routerLink="catalogo/subareas-corporativas" routerLinkActive="active"
+                            (click)="sidenav.toggle()">
+                            <span class="full-width menu__text">Subareas corporativas</span>
+                        </mat-list-item>
+                    </ng-container>
+
+                    <ng-container *appPermission="'catalogo/usuarios'">
+                        <mat-list-item matRipple routerLink="catalogo/usuarios" routerLinkActive="active"
+                            (click)="sidenav.toggle()">
+                            <span class="full-width menu__text">Usuarios</span>
+                        </mat-list-item>
+                    </ng-container>
+
+                    <ng-container *appPermission="'catalogo/componentes'">
+                        <mat-list-item matRipple routerLink="catalogo/componentes" routerLinkActive="active"
+                            (click)="sidenav.toggle()">
+                            <span class="full-width menu__text">Componentes</span>
+                        </mat-list-item>
+                    </ng-container>
+
+                    <ng-container *appPermission="'catalogo/ponderaciones'">
+                        <mat-list-item matRipple routerLink="catalogo/ponderaciones" routerLinkActive="active"
+                            (click)="sidenav.toggle()">
+                            <span class="full-width menu__text">Ponderaciones</span>
+                        </mat-list-item>
+                    </ng-container>
+                    
+                    <ng-container *appPermission="'catalogo'">
+                        <mat-list-item matRipple [ngClass]="{
+                active: getCurrentRoute.includes('/matriz-uvm')
+              }" (click)="showSubmenuMatrizUvm = !showSubmenuMatrizUvm">
+                            <span class="full-width menu__text">Matriz UVM </span>
+                            <mat-icon class="menu__button"
+                                [ngClass]="{ rotated: showSubmenuMatrizUvm }">expand_more</mat-icon>
+                        </mat-list-item>
+                    </ng-container>
+
+                    <ng-container *ngIf="showSubmenuMatrizUvm">
+
+                        <div class="submenu" [ngClass]="{ expanded: showSubmenuMatrizUvm }">
+                            <ng-container *appPermission="'catalogo/matriz-uvm'">
+                                <mat-list-item matRipple routerLink="catalogo/matriz-uvm/componentes-uvm"
+                                    routerLinkActive="active" (click)="sidenav.toggle()">
+                                    <span class="full-width menu__text ml-4">Componentes UVM</span>
+                                </mat-list-item>
+                            </ng-container>
+
+                            <ng-container *appPermission="'catalogo/matriz-uvm'">
+                                <mat-list-item matRipple routerLink="catalogo/matriz-uvm/indicador-uvm"
+                                    routerLinkActive="active" (click)="sidenav.toggle()">
+                                    <span class="full-width menu__text ml-4">Indicadores UVM</span>
+                                </mat-list-item>
+                            </ng-container>
+
+                            <ng-container *appPermission="'catalogo/matriz-uvm'">
+                                <mat-list-item matRipple routerLink="catalogo/matriz-uvm/subindicador-uvm"
+                                    routerLinkActive="active" (click)="sidenav.toggle()">
+                                    <span class="full-width menu__text ml-4">Subindicadores UVM</span>
+                                </mat-list-item>
+                            </ng-container>
+
+                            <!-- <ng-container *appPermission="'catalogo/matriz-uvm'">
+                                <mat-list-item matRipple routerLink="catalogo/matriz-uvm/asociar"
+                                    routerLinkActive="active" (click)="sidenav.toggle()">
+                                    <span class="full-width menu__text ml-4">Matriz UVM</span>
+                                </mat-list-item>
+                            </ng-container> -->
+                        </div>
+                    </ng-container>
+
+                    <ng-container *appPermission="'catalogo/normativas'">
+                        <mat-list-item matRipple routerLink="catalogo/normativas" routerLinkActive="active"
+                            (click)="sidenav.toggle()">
+                            <span class="full-width menu__text">Normativa</span>
+                        </mat-list-item>
+                    </ng-container>
+                    
+                    <ng-container *appPermission="'catalogo/sedes'">
+                        <mat-list-item matRipple routerLink="catalogo/sedes" routerLinkActive="active"
+                            (click)="sidenav.toggle()">
+                            <span class="full-width menu__text">Sedes</span>
+                        </mat-list-item>
+                    </ng-container>
+
+                    <ng-container *appPermission="'catalogo/acreditadores'">
+                        <mat-list-item matRipple routerLink="catalogo/acreditadores" routerLinkActive="active"
+                            (click)="sidenav.toggle()">
+                            <span class="full-width menu__text">Instituciones acreditadoras</span>
+                        </mat-list-item>
+                    </ng-container>
+                    
+                    <ng-container *appPermission="'catalogo/criterios'">
+                        <mat-list-item matRipple routerLink="catalogo/criterios" routerLinkActive="active"
+                            (click)="sidenav.toggle()">
+                            <span class="full-width menu__text">Criterios</span>
+                        </mat-list-item>
+                    </ng-container>
+
+                    <ng-container *appPermission="'catalogo/capitulos'">
+                        <mat-list-item matRipple routerLink="catalogo/capitulos" routerLinkActive="active"
+                            (click)="sidenav.toggle()">
+                            <span class="full-width menu__text">Capítulos</span>
+                        </mat-list-item>
+                    </ng-container>
+                    
+                    <ng-container *appPermission="'catalogo/dependencia-area'">
+                        <mat-list-item matRipple routerLink="catalogo/dependencia-area" routerLinkActive="active"
+                            (click)="sidenav.toggle()">
+                            <span class="full-width menu__text">Dependencia de área</span>
+                        </mat-list-item>
+                    </ng-container>
+                    
+                    <ng-container *appPermission="'catalogo/catalogo-elemento-evaluacion'">
+                        <mat-list-item matRipple routerLink="catalogo/catalogo-elemento-evaluacion"
+                            routerLinkActive="active" (click)="sidenav.toggle()">
+                            <span class="full-width menu__text">Elemento de evaluación</span>
+                        </mat-list-item>
+                    </ng-container>
+                    
+                    <ng-container *appPermission="'catalogo/indicadores-siac'">
+                        <mat-list-item matRipple routerLink="catalogo/indicadores-siac" routerLinkActive="active"
+                            (click)="sidenav.toggle()">
+                            <span class="full-width menu__text">Indicadores SIAC</span>
+                        </mat-list-item>
+                    </ng-container>
+
+                    <ng-container *appPermission="'catalogo/nivel-organizacional'">
+                        <mat-list-item matRipple routerLink="catalogo/nivel-organizacional" routerLinkActive="active"
+                            (click)="sidenav.toggle()">
+                            <span class="full-width menu__text">Niveles organizacionales</span>
+                        </mat-list-item>
+                    </ng-container>
+
+                    <ng-container *appPermission="'catalogo/evidencias'">
+                        <mat-list-item matRipple routerLink="catalogo/evidencias" routerLinkActive="active"
+                            (click)="sidenav.toggle()">
+                            <span class="full-width menu__text">Evidencias</span>
+                        </mat-list-item>
+                    </ng-container>
+                </div>
+            </ng-container>
+            <!-- t e r m i n a   c a t a l o g o  s -->
+
+            <ng-container *appPermission="'configuracion'">
+                <mat-list-item matRipple [ngClass]="{
+            active: getCurrentRoute.includes('/configuracion')
+          }" (click)="showSubmenuConfigurations = !showSubmenuConfigurations">
+                    <span class="full-width menu__text">Configuración</span>
+                    <mat-icon class="menu__button"
+                        [ngClass]="{ rotated: showSubmenuConfigurations }">expand_more</mat-icon>
+                </mat-list-item>
+            </ng-container>
+
+            <ng-container *ngIf="showSubmenuConfigurations">
+                <div class="submenu" [ngClass]="{ expanded: showSubmenuConfigurations }">
+                    <ng-container *appPermission="'configuracion/elemento-evaluacion'">
+                        <mat-list-item matRipple routerLink="configuracion/elemento-evaluacion"
+                            routerLinkActive="active" (click)="sidenav.toggle()">
+                            <span class="full-width menu__text">Elemento de Evaluación</span>
+                        </mat-list-item>
+                    </ng-container>
+                    <ng-container *appPermission="'configuracion/indicadores-siac'">
+                        <mat-list-item matRipple routerLink="configuracion/indicadores-siac"
+                            routerLinkActive="active" (click)="sidenav.toggle()">
+                            <span class="full-width menu__text">Indicadores SIAC</span>
+                        </mat-list-item>
+                    </ng-container>
+                    <ng-container *appPermission="'configuracion/escala-medicion'">
+                        <mat-list-item matRipple routerLink="configuracion/escala-medicion"
+                            routerLinkActive="active" (click)="sidenav.toggle()">
+                            <span class="full-width menu__text">Escala de Medición</span>
+                        </mat-list-item>
+                    </ng-container>
+                </div>
+            </ng-container>
+
+            <!-- <mat-divider></mat-divider>
+            <mat-divider></mat-divider>
+            <mat-divider></mat-divider>
+            <mat-divider></mat-divider> -->
+
+            <!-- <ng-container *appPermission="'configuracion'">
+                <mat-list-item matRipple [ngClass]="{
+            active: getCurrentRoute.includes('/configuracion')
+          }" (click)="showSubmenuConfigurations = !showSubmenuConfigurations">
+                    <span class="full-width menu__text">Configuración</span>
+                    <mat-icon class="menu__button"
+                        [ngClass]="{ rotated: showSubmenuConfigurations }">expand_more</mat-icon>
+                </mat-list-item>
+            </ng-container>
+
+            <ng-container *ngIf="showSubmenuConfigurations">
+                <div class="submenu" [ngClass]="{ expanded: showSubmenuConfigurations }">
+                    <ng-container>
+                        <mat-list-item matRipple routerLink="configuracion/configuracion-general"
+                            routerLinkActive="active" (click)="sidenav.toggle()">
+                            <span class="full-width menu__text">Configuración general</span>
+                        </mat-list-item>
+                    </ng-container>
+                    <ng-container *appPermission="'configuracion/elemento-evaluacion'">
+                        <mat-list-item matRipple routerLink="configuracion/elemento-evaluacion"
+                            routerLinkActive="active" (click)="sidenav.toggle()">
+                            <span class="full-width menu__text">Elemento de evaluación</span>
+                        </mat-list-item>
+                    </ng-container>
+                    <ng-container *appPermission="'configuracion/escala-medicion'">
+                        <mat-list-item matRipple routerLink="configuracion/escala-medicion" routerLinkActive="active"
+                            (click)="sidenav.toggle()">
+                            <span class="full-width menu__text">Escala de medición</span>
+                        </mat-list-item>
+                    </ng-container>
+
+                    <ng-container>
+                        <mat-list-item matRipple routerLink="configuracion/indicadores" routerLinkActive="active"
+                            (click)="sidenav.toggle()">
+                            <span class="full-width menu__text">Indicadores</span>
+                        </mat-list-item>
+                    </ng-container>
+                    <ng-container *appPermission="'configuracion/carga-de-formatos'">
+                        <mat-list-item matRipple routerLink="configuracion/carga-de-formatos" routerLinkActive="active"
+                            (click)="sidenav.toggle()">
+                            <span class="full-width menu__text">Carga de formatos</span>
+                        </mat-list-item>
+                    </ng-container>
+                    <ng-container *appPermission="'configuracion/proceso-copiado'">
+                        <mat-list-item matRipple routerLink="configuracion/proceso-copiado" routerLinkActive="active"
+                            (click)="sidenav.toggle()">
+                            <span class="full-width menu__text">Proceso de copiado</span>
+                        </mat-list-item>
+                    </ng-container>
+                </div>
+            </ng-container>
+
+             <mat-divider></mat-divider>
+        -->
+            <!-- <ng-container *appPermission="'metas-resultados'">
+                <mat-list-item matRipple routerLink="metas-resultados" routerLinkActive="active"
+                    (click)="sidenav.toggle()">
+                    <span class="full-width menu__text">Captura de metas y resultados</span>
+                </mat-list-item>
+            </ng-container> -->
+
+            <mat-divider></mat-divider> 
+<!--
+            <ng-container *appPermission="'carga-evidencias'">
+                <mat-list-item matRipple routerLink="carga-evidencias" routerLinkActive="active"
+                    (click)="sidenav.toggle()">
+                    <span class="full-width menu__text">Carga de evidencias</span>
+                </mat-list-item>
+            </ng-container>
+
+            <mat-divider></mat-divider>
+
+            <ng-container *appPermission="'ejecucion-autoevaluacion'">
+                <mat-list-item matRipple routerLink="ejecucion-autoevaluacion" routerLinkActive="active"
+                    (click)="sidenav.toggle()">
+                    <span class="full-width menu__text">Ejecución de autoevaluación</span>
+                </mat-list-item>
+            </ng-container>
+
+            <mat-divider></mat-divider>
+
+            <ng-container *appPermission="'revision-autoevaluacion'">
+                <mat-list-item matRipple routerLink="revision-autoevaluacion" routerLinkActive="active"
+                    (click)="sidenav.toggle()">
+                    <span class="full-width menu__text">Revision de autoevaluación</span>
+                </mat-list-item>
+            </ng-container>
+
+            <mat-divider></mat-divider>
+
+            <ng-container *appPermission="'plan-mejora'">
+                <mat-list-item matRipple routerLink="plan-mejora" routerLinkActive="active" (click)="sidenav.toggle()">
+                    <span class="full-width menu__text">Plan de mejora</span>
+                </mat-list-item>
+            </ng-container>
+
+            <mat-divider></mat-divider>
+
+            <ng-container *appPermission="'auditoria'">
+                <mat-list-item matRipple routerLink="auditoria" routerLinkActive="active" (click)="sidenav.toggle()">
+                    <span class="full-width menu__text">Auditoria</span>
+                </mat-list-item>
+            </ng-container>
+
+            <mat-divider></mat-divider>
+
+            <ng-container *appPermission="'reporte-seguimiento'">
+                <mat-list-item matRipple routerLink="reporte-seguimiento" routerLinkActive="active"
+                    (click)="sidenav.toggle()">
+                    <span class="full-width menu__text">Reportes y seguimiento</span>
+                </mat-list-item>
+            </ng-container> -->
+
+        </mat-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div style="height: 88vh">
+            <main [class]="getCurrentRoute.includes('/login') ? '' : 'px-4 pb-4'">
+                <router-outlet></router-outlet>
+            </main>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

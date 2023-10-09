@@ -1,0 +1,51 @@
+export { ConfigurationIndicatorSiacService } from './api/configuration-indicator-siac/configuration-indicator-siac.service';
+export { UvmMatrixService } from './api/uvm-matrix/uvm-matrix.service';
+export { EvaluationElementCatalogService } from './api/evaluation-element-catalog/evaluation-element-catalog.service';
+
+export { AccessTypeService } from './api/access-type/access-type.service';
+export { ProfileService } from './api/profile/profile.service';
+export { WeightService } from './api/weight/weight.service';
+export { GeneralConfigurationService } from './api/general-configuration/general-configuration.service';
+export { EvaluationElementService } from './api/evaluation-element/evaluation-element.service';
+export { AccreditorsService } from './api/accreditors/accreditors.service';
+export { CampusService } from './api/campus/campus.service';
+export { ChapterService } from './api/chapter/chapter.service';
+export { ComponentsService } from './api/component/components.service';
+export { CorporateAreaService } from './api/coporate-area/corporate-area.service';
+export { CriteriaService } from './api/criteria/criteria.service';
+export { CyclesService } from './api/cycles/cycles.service';
+export { CyclesServiceV1 } from './api/cycles-v1/cycles.service.v1';
+export { EvaluationPeriodService } from './api/evaluation-period/evaluation-period.service';
+export { EvidenceIndexService } from './api/evidence-indexes/evidence-index.service';
+export { EvidenceLogService } from './api/evidence-log/evidence-log.service';
+export { EvidenceTypeService } from './api/evidence-type/evidence-type.service';
+export { EvidencesService } from './api/evidences/evidences.service';
+export { FileUploadService } from './api/file-upload/file-upload.service';
+export { FollowupService } from './api/followup/followup.service';
+export { IndicatorService } from './api/indicator/indicator.service';
+export { IndicatorSiacService } from './api/indicator-siac/indicator-siac.service';
+export { InstitutionService } from './api/institution/institution.service';
+export { LevelAttentionService } from './api/level-attention/level-attention.service';
+export { LevelModalityService } from './api/level-modality/level-modality.service';
+export { NormativeService } from './api/normative/normative.service';
+export { RegionsService } from './api/regions/regions.service';
+export { ReportsService } from './api/reports/reports.service';
+export { ResponsibilityAreasService } from './api/responsibility-areas/responsibility-areas.service';
+export { RoleAssignmentService } from './api/role-assignment/role-assignment.service';
+export { RolesService } from './api/roles/roles.service';
+export { SchoolCareerService } from './api/school-career/school-career.service';
+export { SitesService } from './api/sites/sites.service';
+export { SubtaskService } from './api/subtask/subtask.service';
+export { UsersService } from './api/users/users.service';
+export { ViewsService } from './api/views/views.service';
+export { AuthMsalService } from './auth-msal/auth-msal.service';
+export { ComponentUvmService } from './api/component-uvm/component-uvm.service';
+export { IndicatorUvmService } from './api/indicator-uvm/indicator-uvm.service';
+export { SubindicatorUvmService } from './api/subindicator-uvm/subindicator-uvm.service';
+export { EvidencesCatalogService } from './api/evidences-catalog/evidences-catalog.service';
+export { default as SettingsWelcomeService } from './api/settings-welcome/settings-welcome.service';
+export { CorporateSubAreaService } from './api/corporate-subarea/corporate-subarea.service';
+export { CapturingGoalService } from './api/capturing-goals-and-results/capturing-goals.service';
+
+
+

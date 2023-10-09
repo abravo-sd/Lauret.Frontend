@@ -1,0 +1,77 @@
+@import "variables";
+
+.no-resize {
+    resize: none;
+    overflow: auto;
+}
+
+.Drag_Style {
+    width: 100%;
+    min-height: calc(328.312px);
+    // height: 7rem;
+    max-width: 100%;
+  }
+
+:host ::ng-deep .mat-dialog-content {
+    overflow: auto;
+}
+
+:host ::ng-deep .mat-tab-label.mat-tab-label-active {
+    background: mat-color($primary, 0.09);
+}
+
+:host ::ng-deep .mat-tab-body-content {
+    overflow: hidden;
+    // font-size: 14px;
+}
+
+:host ::ng-deep .mat-tab-header {
+    top: 0;
+    z-index: 9999; 
+    position: sticky;
+    position: -webkit-sticky; /* macOS/iOS Safari */ 
+    background-color: white;
+}
+
+.input-search {
+    height: 50px;
+    padding-left: 15px;
+    width: calc(100% - 15px);
+    background: mat-color($primary, 0.09);
+    color: mat-color($foreground);
+}
+
+:host ::ng-deep .mat-header-cell {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+:host ::ng-deep .mat-cell,
+.mat-footer-cell {
+    font-size: 12px;
+}
+
+:host ::ng-deep th.mat-header-cell,
+td.mat-cell,
+td.mat-footer-cell {
+    padding: 0px 8px 0px 8px;
+}
+
+// :host ::ng-deep tr.mat-row,
+// tr.mat-footer-row {
+//     height: unset;
+// }
+
+:host ::ng-deep .mat-table tfoot {
+    min-height: 37px;
+}
+
+
+:host ::ng-deep .material-icons {
+    font-size: 18px;
+    line-height: 1.3;
+}
+
+:host ::ng-deep .container {
+    min-height: calc(360.312px);
+}

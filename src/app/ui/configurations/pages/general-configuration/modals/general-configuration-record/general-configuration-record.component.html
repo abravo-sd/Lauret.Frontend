@@ -1,0 +1,71 @@
+<form [formGroup]="generalConfigurationRecorForom" (ngSubmit)="submit()">
+    <h1 mat-dialog-title>{{ title }}</h1>
+    <mat-divider> </mat-divider>
+
+    <mat-dialog-content>
+        <div class="container pt-4">
+            <div class="row">
+                <mat-form-field appearance="outline" class="col-md-12">
+                    <mat-label>Año</mat-label>
+                    <mat-select required formControlName="anio" [disabled]="cycleList.length === 0">
+                        <mat-option *ngFor="let item of yearList" [value]="item.anioId"> {{ item.anio }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="generalConfigurationRecorForom.get('anio').hasError('required')">Este campo es
+                        obligatorio</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-md-12">
+                    <mat-label>Ciclo</mat-label>
+                    <mat-select required formControlName="cicloId" [disabled]="cycleList.length === 0">
+                        <mat-option *ngFor="let item of cycleList" [value]="item.cicloId"> {{ item.nombre
+                            }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="generalConfigurationRecorForom.get('cicloId').hasError('required')">Este campo es
+                        obligatorio</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="col-md-12">
+                    <mat-label>Tipo de área</mat-label>
+                    <mat-select required formControlName="generica">
+                        <mat-option value="0"> Campus</mat-option>
+                        <mat-option value="1"> Genérica </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="generalConfigurationRecorForom.get('generica').hasError('required')">Este campo es
+                        obligatorio</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="col-md-12">
+                    <mat-label>Área responsable</mat-label>
+                    <mat-select required formControlName="areaResponsableId"
+                        [disabled]="areasResponsablesList.length === 0">
+                        <mat-option *ngFor="let item of areasResponsablesList" [value]="item.id">
+                            {{ item.nombre }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="generalConfigurationRecorForom.get('areaResponsableId').hasError('required')">Este
+                        campo es obligatorio</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-md-12">
+                    <mat-label>Nivel/Modalidad</mat-label>
+                    <mat-select required formControlName="nivelModalidadId"
+                        [disabled]="nivelModalidadList.length === 0">
+                        <mat-option *ngFor="let item of nivelModalidadList" [value]="item.id">
+                            {{ item.nivel }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="generalConfigurationRecorForom.get('nivelModalidadId').hasError('required')">Este
+                        campo es obligatorio</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mt-2">
+                    <mat-checkbox formControlName="activo"> Activo </mat-checkbox>
+                </div>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center" class="pb-4">
+        <button type="submit" mat-raised-button class="mt-3" color="primary"
+            [disabled]="generalConfigurationRecorForom.invalid || disabled || !edit">
+            Guardar
+        </button>
+        <button type="button" mat-raised-button class="mt-3" (click)="closeModalByConfimation()">Cancelar</button>
+    </mat-dialog-actions>
+</form>

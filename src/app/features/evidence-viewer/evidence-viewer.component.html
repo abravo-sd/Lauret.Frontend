@@ -1,0 +1,31 @@
+<div class="modal__container">
+  <h1 mat-dialog-title>Visualización de evidencia</h1>
+  <mat-divider> </mat-divider>
+  <mat-dialog-content>
+    <div class="container-fluid px-0">
+      <div class="row px-0">
+        <div class="col-md-12 px-0">
+          <ng-container *ngIf="data.type === 'pdf'">
+            <pdf-viewer
+              [src]="data.file.url"
+              [render-text]="false"
+              [original-size]="false"
+              (on-progress)="onProgress()"
+              (error)="error()"
+              (after-load-complete)="afterLoadedComplete()"
+            ></pdf-viewer>
+          </ng-container>
+          <ng-container *ngIf="data.type === 'image'">
+            <div class="image__container pt-4">
+              <img className="image" [src]="data.image.url" alt="image" />
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="center" class="pb-4">
+    <button type="button" mat-raised-button class="mt-3" mat-dialog-close>Cerrar</button>
+  </mat-dialog-actions>
+</div>

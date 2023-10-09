@@ -1,0 +1,95 @@
+<div class="content p-0">
+    <div class="row mt-2">
+        <div class="col-md-12 p-0">
+            <h1 class="title-page mt-2">Reportes</h1>
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+    <form [formGroup]="reportForm" autocomplete="off">
+        <div class="row mt-3">
+            <mat-form-field appearance="outline" class="col-12 col-md-4">
+                <mat-label>Acreditadoras</mat-label>
+                <mat-select formControlName="accreditation" (selectionChange)="changeAccreditation()">
+                    <mat-option [value]="item.acreditadoraId" *ngFor="let item of accreditorList">
+                        {{ item.nombre }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="col-12 col-md-4">
+                <mat-label>Proceso</mat-label>
+                <mat-select formControlName="process" (selectionChange)="changeProcess()">
+                    <mat-option [value]="item.acreditadoraProcesoId" *ngFor="let item of processList">{{
+                        item.nombre
+                        }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="col-12 col-md-4">
+                <mat-label>Ciclos</mat-label>
+                <mat-select multiple formControlName="cycles">
+                    <mat-option [value]="item.cicloId" *ngFor="let item of cycleList">{{ item.nombre }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="col-12 col-md-4">
+                <mat-label>Carrera</mat-label>
+                <mat-select multiple formControlName="career" (selectionChange)="careerChange()">
+                    <mat-option [value]="item.carreraId" *ngFor="let item of careersList">
+                        {{ item.nombre }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="col-12 col-md-4">
+                <mat-label>Capítulos</mat-label>
+                <mat-select multiple formControlName="chapters">
+                    <mat-option [value]="item.capituloId" *ngFor="let item of chaptersList">
+                        {{ item.nombre }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="col-12 col-md-4">
+                <mat-label>Criterios</mat-label>
+                <mat-select multiple formControlName="criterias">
+                    <mat-option [value]="item.criterioId" *ngFor="let item of criteriaList">
+                        {{ item.descripcion }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="col-12 col-md-4">
+                <mat-label>Sede</mat-label>
+                <mat-select multiple formControlName="headquarter">
+                    <mat-option [value]="item.id" *ngFor="let item of sedeList">
+                        {{ item.nombre }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="col-12 col-md-4">
+                <mat-label>Campus</mat-label>
+                <mat-select multiple formControlName="campus">
+                    <mat-option [value]="item.id" *ngFor="let item of campusList">
+                        {{ item.nombre }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="col-12 col-md-4">
+                <mat-label>Entregado</mat-label>
+                <mat-select formControlName="delivered">
+                    <mat-option [value]="1"> Si </mat-option>
+                    <mat-option [value]="2"> No </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </form>
+
+    <ng-container>
+        <div class="row mt-1 pb-4">
+            <div class="col-12">
+                <button type="button" mat-raised-button color="primary" class="btn-text" [disabled]="reportForm.invalid"
+                    (click)="submit()">
+                    <mat-icon>summarize</mat-icon> Generar
+                </button>
+            </div>
+        </div>
+    </ng-container>
+</div>

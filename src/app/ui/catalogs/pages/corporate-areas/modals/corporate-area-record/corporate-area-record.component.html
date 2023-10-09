@@ -1,0 +1,71 @@
+<form [formGroup]="corporateAreaRecordForm" (ngSubmit)="submit()">
+  <h1 mat-dialog-title>{{ title }}</h1>
+  <mat-divider> </mat-divider>
+  <mat-dialog-content>
+      <div class="container pt-4">
+          <div class="row">
+
+              <mat-form-field appearance="outline" class="col-md-12 mt-1">
+                  <mat-label>Siglas</mat-label>
+                  <input appInputRestriction="clave" matInput required name="siglas"
+                      formControlName="siglas" [maxLength]="5" />
+                  <mat-error *ngIf="corporateAreaRecordForm.get('siglas').hasError('noWhitespace')">Este
+                      campo es obligatorio</mat-error>
+                  <mat-error *ngIf="corporateAreaRecordForm.get('siglas').hasError('maxlength')">El valor
+                      máximo de caracteres es 5
+                  </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="col-md-12 mt-1">
+                  <mat-label>Nombre</mat-label>
+                  <input matInput required name="nombre" formControlName="nombre" [maxLength]="150" />
+                  <mat-error *ngIf="corporateAreaRecordForm.get('nombre').hasError('noWhitespace')">Este campo es
+                      obligatorio</mat-error>
+                  <mat-error *ngIf="corporateAreaRecordForm.get('nombre').hasError('maxlength')">El valor máximo de
+                      caracteres es 150
+                  </mat-error>
+              </mat-form-field>
+
+              <!-- <mat-form-field appearance="outline" class="col-md-12 mt-1">
+                  <mat-label>Subarea</mat-label>
+                  <mat-chip-list #chipList>
+                      <mat-chip *ngFor="let item of corporateAreaSubAreasList; let i = index" [selectable]="true"
+                          [removable]="removable" (removed)="removeAreaList(item)" name="subareas_">{{
+                          item }}
+                          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                      </mat-chip>
+                      <input placeholder="Agregar Subárea " matInput formControlName="subareas_" [maxLength]="150"
+                          name="subareas_" [matChipInputFor]="chipList"
+                          [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="true"
+                          (matChipInputTokenEnd)="addSubAreaList($event)" />
+                  </mat-chip-list>
+
+                  <mat-error *ngIf="corporateAreaRecordForm.get('subareas_').hasError('noWhitespace')">Este campo es
+                      obligatorio</mat-error>
+              </mat-form-field> -->
+
+              <mat-form-field appearance="outline" class="col-md-12">
+                <mat-label>Subarea</mat-label>
+                <mat-select multiple required name="subareas_" formControlName="subareas_" [disabled]="subareascorporativaList.length === 0">
+                    <mat-option *ngFor="let item of subareascorporativaList" [value]="item.id"> {{ item.nombre }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="corporateAreaRecordForm.get('subareas_').hasError('noWhitespace')">Este campo es
+                  obligatorio</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="row">
+              <div class="col-md-12 mt-2">
+                  <mat-checkbox formControlName="activo" [disabled]="!checkPermission(2)"> Activo </mat-checkbox>
+              </div>
+          </div>
+      </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="center" class="pb-4">
+      <button type="submit" mat-raised-button class="mt-3" color="primary"
+          [disabled]="corporateAreaRecordForm.invalid || disabled || !edit">
+          Guardar
+      </button>
+      <button type="button" mat-raised-button class="mt-3" (click)="closeModalByConfimation()">Cancelar</button>
+  </mat-dialog-actions>
+</form>

@@ -1,0 +1,84 @@
+{
+  "root": true,
+  "ignorePatterns": ["projects/**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": ["tsconfig.json"],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "plugin:prettier/recommended"
+      ],
+      "rules": {
+        "@angular-eslint/directive-selector": ["off"],
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": ["app", ""],
+            "style": "kebab-case"
+          }
+        ]
+      }
+    },
+    {
+      "files": ["*.html"],
+      "extends": ["plugin:@angular-eslint/template/recommended", "plugin:prettier/recommended"],
+      "plugins": ["prettier", "sort-class-members", "modules-newline"],
+      "rules": {
+        "prettier/prettier": "off",
+        "sort-class-members/sort-class-members": [
+          2,
+          {
+            "order": [
+              "[properties]",
+              "[conventional-private-properties]",
+              "constructor",
+              "[static-properties]",
+              "[static-methods]",
+              "[methods]",
+              "[conventional-private-methods]"
+            ],
+            "accessorPairPositioning": "getThenSet"
+          }
+        ],
+        "curly": "error",
+        "eqeqeq": "error",
+        "no-dupe-keys": "error",
+        "no-duplicate-case": "error",
+        "block-spacing": "error",
+        "brace-style": "error",
+        "comma-spacing": "error",
+        "comma-style": "error",
+        "computed-property-spacing": "error",
+        "key-spacing": [
+          "error",
+          {
+            "align": "colon"
+          }
+        ],
+        "keyword-spacing": "error",
+        "no-multiple-empty-lines": "error",
+        "no-trailing-spaces": "error",
+        "object-curly-spacing": "error",
+        "quotes": ["error", "single"],
+        "space-infix-ops": "error",
+        "no-unused-vars": ["error", { "vars": "all" }],
+        /* "modules-newline/import-declaration-newline": "warn",
+        "modules-newline/export-declaration-newline": "warn", */
+        "no-undefined": "error",
+        "no-var": "error",
+        "prefer-const": "error",
+        "func-names": "error",
+        "id-length": "error",
+        "newline-before-return": "error",
+        "space-before-blocks": "error",
+        "no-alert": "error"
+      }
+    }
+  ]
+}

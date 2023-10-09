@@ -1,0 +1,38 @@
+<mat-form-field appearance="fill">
+  <mat-label>{{ label }}</mat-label>
+  <mat-select
+    [formControl]="control"
+    placeholder="Seleccione una opción..."
+    [multiple]="multiple"
+    #multiSelect
+    (selectionChange)="change()"
+    (openedChange)="getPreviousValue($event)"
+  >
+    <mat-select-trigger *ngIf="selectedElementsText !== ''">
+      {{ getLengthData() }}
+    </mat-select-trigger>
+
+    <mat-option>
+      <ngx-mat-select-search
+        [showToggleAllCheckbox]="true"
+        [toggleAllCheckboxIndeterminate]="isIndeterminate"
+        [toggleAllCheckboxChecked]="isChecked"
+        (toggleAll)="toggleSelectAll($event)"
+        [formControl]="controlSearch"
+        [noEntriesFoundLabel]="noFoundText"
+        [placeholderLabel]="searchText"
+      ></ngx-mat-select-search>
+    </mat-option>
+
+    <ng-container>
+      <mat-option
+        *ngFor="let item of filteredData | async"
+        [value]="getIdValue(item)"
+        [disabled]="getDisableOptionsSelect(getIdValue(item))"
+      >
+        {{ getNameValue(item) }}
+      </mat-option>
+    </ng-container>
+  </mat-select>
+  <mat-error *ngIf="control!.hasError('required')"> Campo requerido. </mat-error>
+</mat-form-field>

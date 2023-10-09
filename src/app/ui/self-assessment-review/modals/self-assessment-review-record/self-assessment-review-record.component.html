@@ -1,0 +1,69 @@
+<div class="row d-flex">
+  <h1 mat-dialog-title class="col-md-11">Edición de autoevaluación</h1>
+  <button type="button" class="col-md-1 mb-2" (click)="closeModalByConfimation()">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <mat-divider> </mat-divider>
+  <mat-dialog-content>
+    <div class="row pb-4">
+      <div class="col-md-12 container__table mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" class="table mb-0">
+          <ng-container matColumnDef="component">
+            <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Componente</th>
+            <td mat-cell class="table__cell table__cell-id" *matCellDef="let row"></td>
+          </ng-container>
+
+          <ng-container matColumnDef="evaluationElement">
+            <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Elemento de evaluación</th>
+            <td mat-cell class="table__cell table__cell-name" *matCellDef="let row"></td>
+          </ng-container>
+
+          <ng-container matColumnDef="previousResult">
+            <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Puntaje anterior</th>
+            <td mat-cell class="table__cell table__cell-name" *matCellDef="let row"></td>
+          </ng-container>
+
+          <ng-container matColumnDef="currentResult">
+            <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Puntaje final</th>
+            <td mat-cell class="table__cell table__cell-name" *matCellDef="let row"></td>
+          </ng-container>
+
+          <ng-container matColumnDef="edit">
+            <th mat-header-cell class="table__header table__cell--actions" *matHeaderCellDef>Acciones</th>
+            <td mat-cell class="table__cell table__cell--actions" *matCellDef="let row; let index = index">
+              <div class="d-flex justify-content-center">
+                <button mat-button matTooltip="Editar">
+                  <mat-icon class="edit__icon">edit</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+          <tr
+            mat-header-row
+            *matHeaderRowDef="['component', 'evaluationElement', 'previousResult', 'currentResult', 'edit']"
+          ></tr>
+          <tr
+            mat-row
+            *matRowDef="let row; columns: ['component', 'evaluationElement', 'previousResult', 'currentResult', 'edit']"
+          ></tr>
+        </table>
+        <!-- <ng-template [ngIf]="dataSource.data.length === 0">
+        <p class="empty-table mt-4">No hay datos para mostrar</p>
+      </ng-template> -->
+        <!-- <mat-paginator #paginator class="ml-auto" showFirstLastButtons (page)="paginatorChange($event)"></mat-paginator> -->
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="row col-md-12 mt-5">
+      <h4 class="col-md-8 mt-2">Se proporcionó retroalimentación al colaborador del área revisada?</h4>
+      <mat-radio-group class="col-md-3" aria-label="Select an option">
+        <mat-radio-button class="ml-1 mt-2" value="1">Si</mat-radio-button>
+        <mat-radio-button class="ml-1 mt-2" value="2">No</mat-radio-button>
+      </mat-radio-group>
+      <div class="col-md-1">
+        <button type="submit" mat-raised-button color="primary" disabled="true">Finalizar</button>
+      </div>
+    </div>
+  </mat-dialog-content>
+</div>

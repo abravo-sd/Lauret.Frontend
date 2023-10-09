@@ -1,0 +1,212 @@
+<!-- <div class="content p-0">
+    <div class="row mt-2">
+        <div class="col-md-12 p-0">
+            <h1 class="title-page mt-2">Captura de metas y resultados</h1>
+        </div>
+        <mat-divider></mat-divider>
+        <mat-form-field appearance="outline" class="col-md-4 mt-2">
+            <mat-label>Año</mat-label>
+            <mat-select required [disabled]="yearList.length === 0">
+                <mat-option *ngFor="let item of yearList" [value]="item.anioId"> {{ item.anio }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-md-4 mt-2">
+            <mat-label>Ciclo</mat-label>
+            <mat-select required [disabled]="cycleList.length === 0">
+                <mat-option *ngFor="let item of cycleList" [value]="item.cicloId"> {{ item.nombre }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-md-4 mt-2">
+            <mat-label>Region</mat-label>
+            <mat-select required [disabled]="regionsList.length === 0">
+                <mat-option *ngFor="let item of regionsList" [value]="item.id"> {{ item.nombre }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-md-6">
+            <mat-label>Nivel/modalidad</mat-label>
+            <mat-select required [disabled]="levelModalityList.length === 0">
+                <mat-option *ngFor="let item of levelModalityList" [value]="item.id">
+                    {{ item.nivel }}/{{ item.modalidad }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-md-6">
+            <mat-label>Campus</mat-label>
+            <mat-select required [disabled]="campusList.length === 0">
+                <mat-option *ngFor="let item of campusList" [value]="item.id"> {{ item.nombre }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-md-6">
+            <mat-label>Area Responsable</mat-label>
+            <mat-select required [disabled]="responsibilityAreasList.length === 0">
+                <mat-option *ngFor="let item of responsibilityAreasList" [value]="item.areaResponsableId">
+                    {{ item.nombre }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button type="button" mat-raised-button class="col-md-2 button_height" color="primary">Buscar</button>
+    </div>
+</div> -->
+<div class="row pb-4">
+    <div class="col-md-12 container__table mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" class="table mb-0">
+            <!-- <ng-container matColumnDef="select">
+                <th mat-header-cell class="table__header table__cell--select" *matHeaderCellDef>
+                    <div class="d-flex justify-content-center">Activo</div>
+                </th>
+                <td mat-cell class="table__cell table__cell--select" *matCellDef="let row">
+                    <div class="d-flex justify-content-center">
+                        <mat-checkbox class="d-block" disabled [checked]="row.activo"> </mat-checkbox>
+                    </div>
+                </td>
+            </ng-container> -->
+           
+           <!-- RMM
+            <ng-container matColumnDef="id">
+                <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Id</th>
+                <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+                    {{ row.metasResultadoId }}
+                </td>
+            </ng-container>
+        -->
+
+        <ng-container matColumnDef="cicloId">
+            <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Ciclo</th>
+            <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+                {{ row.cicloId }}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="proceso">
+            <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Proceso</th>
+            <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+                {{ row.proceso }}
+            </td>
+        </ng-container> 
+
+        <ng-container matColumnDef="institucion">
+            <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Institución</th>
+            <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+                {{ row.institucion }}
+            </td>
+        </ng-container> 
+
+    
+         <ng-container matColumnDef="region">
+                <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Region</th>
+                <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+                    {{ row.regionId }}
+                </td>
+            </ng-container> 
+
+            <ng-container matColumnDef="campus">
+                <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Campus</th>
+                <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+                    {{ row.campusId }}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="areaResponsable">
+                <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Área responsable</th>
+                <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+                    {{ row.areaResponsable }}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="nivelModalidad">
+                <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Nivel/Modalidad</th>
+                <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+                    {{ row.nivelModalidad() }}
+                </td>
+            </ng-container>
+            
+
+            <ng-container matColumnDef="tipoArea">
+                <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Tipo Área</th>
+                <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+                    {{ row.tipoArea }}
+                </td>
+            </ng-container>
+
+          
+
+            <ng-container matColumnDef="etapa">
+                <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Etapa</th>
+                <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+                    {{ row.etapa }}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="inicio">
+                <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Inicio</th>
+                <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+                    {{ row.inicio }}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="fin">
+                <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Fin</th>
+                <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+                    {{ row.fin }}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="avance">
+                <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Avance</th>
+                <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+                    {{ row.avance }}
+                </td>
+            </ng-container>
+
+     
+            <ng-container matColumnDef="edit">
+                <th mat-header-cell class="table__header table__cell--actions" *matHeaderCellDef>Acciones</th>
+                <td mat-cell class="table__cell table__cell--actions" *matCellDef="let row; let index = index">
+                    <div class="d-flex justify-content-center">
+                        <button mat-button matTooltip="Editar">
+                            <mat-icon class="edit__icon">edit</mat-icon>
+                        </button>
+
+                        <button mat-button matTooltip="Eliminar" [disabled]="disabled">
+                            <mat-icon class="delete__icon">delete_forever</mat-icon>
+                        </button>
+                    </div>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="[
+            'cicloId',
+            'proceso',
+            'institucion',
+            'region',
+            'campus',
+          'areaResponsable',
+            'nivelModalidad',
+            'tipoArea',
+            'etapa',
+            'inicio',
+            'fin',
+          'avance',
+          'edit'
+        ]"></tr>
+            <tr mat-row *matRowDef="
+          let row;
+          columns: [
+          'cicloId',
+          'proceso',
+          'institucion',
+          'region',
+          'campus',
+        'areaResponsable',
+          'nivelModalidad',
+          'tipoArea',
+          'etapa',
+          'inicio',
+          'fin',
+        'avance',
+            'edit'
+          ]
+        "></tr>
+        </table>
+        <ng-template [ngIf]="dataSource.data.length === 0">
+            <p class="empty-table mt-4">No hay datos para mostrar</p>
+        </ng-template>
+        <mat-paginator #paginator class="ml-auto" showFirstLastButtons (page)="paginatorChange($event)"></mat-paginator>
+    </div>
+</div>

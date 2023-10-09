@@ -1,0 +1,125 @@
+<form [formGroup]="evaluationElementRecordForm" (ngSubmit)="submit()">
+    <h1 mat-dialog-title>{{ title }}</h1>
+    <mat-divider> </mat-divider>
+    <mat-dialog-content>
+        <div class="container mt-0">
+            <div class="container mt-4">
+                <div class="row">
+                    <mat-form-field appearance="outline" class="col-md-3">
+                        <mat-label>Año</mat-label>
+                        <mat-select required #anio name="anio" formControlName="anio"
+                            (selectionChange)="onYearChange($event)" [attr.disabled]="(yearList.length == 0)">
+                            <mat-option *ngFor="let item of yearList" [value]="item.anio">{{ item.anio }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="evaluationElementRecordForm.get('anio').hasError('required')">Este campo es obligatorio</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-md-3">
+                        <mat-label>Ciclo</mat-label>
+                        <mat-select required #idCiclo name="idCiclo" formControlName="idCiclo"
+                            (selectionChange)="onCycleChange(anio.value, $event)" [attr.disabled]="(cycleList.length == 0)">
+                            <mat-option *ngFor="let item of cycleList" [value]="item.idCiclo">{{ item.ciclo }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="evaluationElementRecordForm.get('idCiclo').hasError('required')">Este campo es obligatorio</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-md-6">
+                        <mat-label>Institución</mat-label>
+                        <mat-select required name="idInstitucion" formControlName="idInstitucion"
+                            (selectionChange)="onInstitutionChange(anio.value, idCiclo.value, $event)" [attr.disabled]="(institutionList.length == 0)">
+                            <mat-option *ngFor="let item of institutionList" [value]="item.idInstitucion"> {{ item.institucion }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="evaluationElementRecordForm.get('idInstitucion').hasError('required')">Este campo es obligatorio</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field appearance="outline" class="col-md-4">
+                        <mat-label>Proceso</mat-label>
+                        <mat-select required name="proceso" formControlName="proceso" 
+                            (selectionChange)="onProccessChange($event)" [attr.disabled]="(proccessList.length == 0)">
+                            <mat-option *ngFor="let item of proccessList" [value]="item.proceso">{{ item.getProccessString() }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="evaluationElementRecordForm.get('proceso').hasError('required')">Este campo es obligatorio</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-md-8">
+                        <mat-label>Área Responsable</mat-label>
+                        <mat-select required name="catAreaResponsableId" formControlName="catAreaResponsableId"
+                            (selectionChange)="onResponsibilityAreaChange($event)">
+                            <mat-option *ngFor="let item of responsibilityAreaList" [value]="item.id">{{ item.nombre }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="evaluationElementRecordForm.get('catAreaResponsableId').hasError('required')">Este campo es obligatorio</mat-error>
+                    </mat-form-field>
+                    <input hidden="true" name="catPeriodoEvaluacionId" formControlName="catPeriodoEvaluacionId">
+                </div>
+                <div class="row">
+                    <mat-form-field appearance="outline" class="col-md-4">
+                        <mat-label>Tipo de Área Responsable</mat-label>
+                        <input matInput name="responsibilityAreaType" formControlName="responsibilityAreaType" />
+                    </mat-form-field>
+                    <ng-container *ngIf="evaluatioElementData">
+                        <mat-form-field appearance="outline" class="col-md-8">
+                            <mat-label>Nivel / Modalidad</mat-label>
+                            <input matInput name="nivelModalidad" formControlName="nivelModalidad" />
+                        </mat-form-field>
+                    </ng-container>
+                    <ng-container *ngIf="!evaluatioElementData">
+                        <div class="col-md-8 mt-1 mb-4">
+                            <mat-selection-list required name="catNivelModalidadId" formControlName="catNivelModalidadId" class="col-md-12">
+                                <div mat-subheader style="font-size: 14px;">Nivel / Modalidad</div>
+                                <mat-list-option *ngFor="let item of levelModalityList" [value]="item.id" [disabled]="generica" style="font-size: 14px;">
+                                    {{ item.nombre }}
+                                </mat-list-option>
+                            </mat-selection-list>
+                            <mat-error class="mat-error-local col-md-12 mt-1" *ngIf="evaluationElementRecordForm.get('catNivelModalidadId').hasError('required')">
+                                Este campo es obligatorio
+                            </mat-error>                            
+                        </div>
+                    </ng-container>
+                </div>
+                <div class="row">
+                    <mat-form-field appearance="outline" class="col-md-6">
+                        <mat-label>Elemento de Evaluación</mat-label>
+                        <mat-select required name="catElementoEvaluacionId"
+                            formControlName="catElementoEvaluacionId">
+                            <mat-option *ngFor="let item of evaluationElementCatalogList" [value]="item.id">{{ item.clave}} - {{ item.nombre }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="evaluationElementRecordForm.get('catElementoEvaluacionId').hasError('required')">Este campo es obligatorio</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-md-6">
+                        <mat-label>Componente</mat-label>
+                        <mat-select required name="catComponenteId" formControlName="catComponenteId">
+                            <mat-option *ngFor="let item of componentList" [value]="item.id">{{ item.nombre }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="evaluationElementRecordForm.get('catComponenteId').hasError('required')">Este campo es obligatorio</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field appearance="outline" class="col-md-6">
+                        <mat-label>Área Corporativa</mat-label>
+                        <mat-select required name="catAreaCorporativaId" formControlName="catAreaCorporativaId" (selectionChange)="onCorporateAreaChange($event)">
+                            <mat-option *ngFor="let item of corporateAreaList" [value]="item.id"> {{ item.nombre }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="evaluationElementRecordForm.get('catAreaCorporativaId').hasError('required')">Este campo es obligatorio</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-md-6">
+                        <mat-label>Subarea Corporativa</mat-label>
+                        <mat-select required name="catSubAreaCorporativaId" formControlName="catSubAreaCorporativaId">
+                            <mat-option *ngFor="let item of subAreaCorporateList" [value]="item.id">{{ item.nombre }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="evaluationElementRecordForm.get('catSubAreaCorporativaId').hasError('required')">Este campo es obligatorio</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mt-2">
+                        <mat-checkbox name="activo" formControlName="activo">Activo</mat-checkbox>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center" class="pb-4">
+        <button type="submit" mat-raised-button class="mt-3" color="primary"
+            [disabled]="!evaluationElementRecordForm.valid || disabled || !edit">
+            Guardar
+        </button>
+        <button type="button" mat-raised-button class="mt-3" (click)="closeModalByConfimation()">Cancelar</button>
+    </mat-dialog-actions>
+</form>

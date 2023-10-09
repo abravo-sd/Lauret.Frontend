@@ -1,0 +1,72 @@
+<form autocomplete="off" [formGroup]="copyForm">
+  <div class="modal__container">
+    <h1 mat-dialog-title>Proceso de copiado</h1>
+    <mat-divider> </mat-divider>
+    <mat-dialog-content>
+      <div class="container pt-4">
+        <div class="row">
+          <mat-form-field appearance="outline" class="col-md-12 mt-1">
+            <mat-label>Acreditadora</mat-label>
+            <mat-select formControlName="accreditation" (selectionChange)="changeFilter()">
+              <mat-option [value]="item.acreditadoraId" *ngFor="let item of accreditorList">
+                {{ item.nombre }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="copyForm.get('accreditation').hasError('required')">Este campo es obligatorio</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="col-md-12 mt-1">
+            <mat-label>Proceso de origen</mat-label>
+            <mat-select formControlName="processOrigin">
+              <mat-option [value]="item.acreditadoraProcesoId" *ngFor="let item of processList">{{
+                item.nombre
+              }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="copyForm.get('processOrigin').hasError('required')">Este campo es obligatorio</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="col-md-12 mt-1">
+            <mat-label>Proceso destino</mat-label>
+            <mat-select formControlName="processDestination">
+              <mat-option [value]="item.acreditadoraProcesoId" *ngFor="let item of processList">{{
+                item.nombre
+              }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="copyForm.get('processDestination').hasError('required')"
+              >Este campo es obligatorio</mat-error
+            >
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="col-md-12 mt-1">
+            <mat-label>Carrera origen</mat-label>
+            <mat-select formControlName="careerOrigin">
+              <mat-option [value]="item.carreraId" *ngFor="let item of careersList">
+                {{ item.nombre }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="col-md-12 mt-1">
+            <mat-label>Carrera destino</mat-label>
+            <mat-select formControlName="careerDestination">
+              <mat-option [value]="item.carreraId" *ngFor="let item of careersList">
+                {{ item.nombre }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div class="col-12">
+            <mat-error *ngIf="!isDifferentValue()"
+              >No se puede tener los mismos procesos con las mismas carreras.</mat-error
+            >
+          </div>
+        </div>
+      </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="center" class="pb-4">
+      <button type="button" mat-raised-button class="mt-3" color="primary" [disabled]="!isValidForm" (click)="submit()">
+        Guardar
+      </button>
+      <button type="button" mat-raised-button class="mt-3" mat-dialog-close>Cancelar</button>
+    </mat-dialog-actions>
+  </div>
+</form>

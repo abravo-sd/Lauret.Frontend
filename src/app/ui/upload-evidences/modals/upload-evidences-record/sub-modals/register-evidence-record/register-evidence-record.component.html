@@ -1,0 +1,54 @@
+<div class="content p-0">
+  <div class="row mt-2">
+    <div class="row col-md-12">
+      <h1 class="col-md-7 title-page mt-2">Registro de evidencia</h1>
+    </div>
+    <mat-divider></mat-divider>
+
+    <mat-form-field appearance="outline" class="col-md-4">
+      <mat-label>Campus</mat-label>
+      <mat-select required [disabled]="campusList.length === 0">
+        <mat-option *ngFor="let item of campusList" [value]="item.campusId"> {{ item.nombre }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="col-md-4">
+      <mat-label>Area Responsable</mat-label>
+      <mat-select required [disabled]="responsibilityAreasList.length === 0">
+        <mat-option *ngFor="let item of responsibilityAreasList" [value]="item.areaResponsableId">
+          {{ item.nombre }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="col-md-4">
+      <mat-label>Componente</mat-label>
+      <mat-select required [disabled]="levelModalityList.length === 0">
+        <mat-option *ngFor="let item of componentList" [value]="item.componenteId"> {{ item.nombre }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="col-md-4">
+      <mat-label>Nivel/modalidad</mat-label>
+      <mat-select required [disabled]="levelModalityList.length === 0">
+        <mat-option *ngFor="let item of levelModalityList" [value]="item.nivelModalidadId">
+          {{ item.nivel }}/{{ item.modalidad }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="col-md-4">
+      <mat-label>Nombre evidencia</mat-label>
+      <mat-select required [disabled]="levelModalityList.length === 0">
+        <mat-option *ngFor="let item of levelModalityList" [value]="item.nivelModalidadId"> </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="col-md-12">
+      <mat-label><b>Descripción de evidencia</b></mat-label>
+      <textarea matInput></textarea>
+    </mat-form-field>
+  </div>
+  <mat-divider></mat-divider>
+  <mat-dialog-actions align="center" class="pb-4">
+    <button type="submit" mat-raised-button class="mt-3" color="primary">Guardar</button>
+    <button type="button" mat-raised-button class="mt-3" (click)="closeModalByConfimation()">Cancelar</button>
+  </mat-dialog-actions>
+</div>

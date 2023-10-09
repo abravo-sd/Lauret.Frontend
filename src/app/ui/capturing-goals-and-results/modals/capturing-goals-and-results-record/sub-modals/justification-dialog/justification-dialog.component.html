@@ -1,0 +1,18 @@
+<div class="content p-0">
+  <div class="row mt-2">
+    <div class="row col-md-12">
+      <h1 class="col-md-7 title-page mt-2">Justificación</h1>
+    </div>
+    <mat-divider></mat-divider>
+    <h3 class="mt-3">Capture breve explicación del cambio realizado</h3>
+    <mat-form-field appearance="outline" class="col-md-12">
+      <mat-label>Justificación</mat-label>
+      <textarea rows="6" matInput></textarea>
+    </mat-form-field>
+    <mat-divider></mat-divider>
+    <mat-dialog-actions align="center" class="pb-4">
+      <button type="submit" mat-raised-button class="mt-3" color="primary">Guardar</button>
+      <button type="button" mat-raised-button class="mt-3" (click)="closeModalByConfimation()">Cancelar</button>
+    </mat-dialog-actions>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="col-md-12">
+  <div class="row d-flex">
+    <h1 mat-dialog-title class="col-md-11">Cargar evidencias</h1>
+    <button type="button" class="col-md-1 mb-2" (click)="closeModalByConfimation()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div class="row">
+    <mat-form-field appearance="outline" class="col-md-5">
+      <mat-label>Componente</mat-label>
+      <mat-select required [disabled]="componentList.length === 0">
+        <mat-option *ngFor="let item of componentList" [value]="item.componenteId"> {{ item.nombre }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="col-md-5">
+      <mat-label>Elemento de evaluación</mat-label>
+      <mat-select required [disabled]="evaluationelementList.length === 0">
+        <mat-option *ngFor="let item of evaluationelementList" [value]="item.elementoEvaluacionId">
+          {{ item.nombreEvidencia }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+
+    <ngx-file-drag-drop
+      emptyPlaceholder="Arrastre y coloque los archivos que desea adjuntar"
+      class="mt-3 Drag_Style"
+      activeBorderColor="#3F51B5"
+      [multiple]="true"
+      (valueChanged)="uploadFile($event)"
+    ></ngx-file-drag-drop>
+    <mat-divider></mat-divider>
+    <mat-dialog-actions align="center" class="pb-4">
+      <button type="submit" mat-raised-button class="mt-3" color="primary">Guardar</button>
+      <button type="button" mat-raised-button class="mt-3" (click)="closeModalByConfimation()">Cancelar</button>
+    </mat-dialog-actions>
+  </div>
+</div>

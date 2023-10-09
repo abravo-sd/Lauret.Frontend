@@ -1,0 +1,35 @@
+<div class="content p-0">
+  <div class="row mt-2">
+    <div class="col-md-12 p-0">
+      <h1 class="title-page mt-2">Carga de formatos</h1>
+    </div>
+    <mat-divider></mat-divider>
+  </div>
+  <div class="row justify-content-center pt-4">
+    <div class="col-md-6 container__table mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" class="table mb-0">
+        <ng-container matColumnDef="stage">
+          <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Etapa</th>
+          <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+            {{ row.etapa }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell class="table__header table__cell--actions" *matHeaderCellDef>Acciones</th>
+          <td mat-cell class="table__cell table__cell--actions" *matCellDef="let row; let index = index">
+            <div class="d-flex justify-content-center">
+              <button mat-button matTooltip="Editar">
+                <mat-icon class="edit__icon">upload</mat-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="['stage', 'edit']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['stage', 'edit']"></tr>
+      </table>
+      <ng-template [ngIf]="dataSource.data.length === 0">
+        <p class="empty-table mt-4">No hay datos para mostrar</p>
+      </ng-template>
+    </div>
+  </div>
+</div>

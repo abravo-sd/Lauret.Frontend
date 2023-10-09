@@ -1,0 +1,7 @@
+.table-container {
+  overflow: auto;
+}
+
+::ng-deep .table-container th {
+  min-width: 100px;
+}

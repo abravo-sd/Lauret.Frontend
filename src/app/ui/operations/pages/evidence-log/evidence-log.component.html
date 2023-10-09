@@ -1,0 +1,172 @@
+<div class="content p-0">
+  <div class="row mt-2">
+    <div class="col-md-12 p-0">
+      <h1 class="title-page mt-2">Registro de evidencias</h1>
+    </div>
+    <mat-divider></mat-divider>
+  </div>
+  <form [formGroup]="evidenceForm" autocomplete="off">
+    <div class="row mt-3">
+      <mat-form-field appearance="outline" class="col-12 col-md-4">
+        <mat-label>Acreditadoras</mat-label>
+        <mat-select formControlName="accreditation" (selectionChange)="changeFilter('accreditation')">
+          <mat-option [value]="item.acreditadoraId" *ngFor="let item of accreditorList">
+            {{ item.nombre }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="col-12 col-md-4">
+        <mat-label>Proceso</mat-label>
+        <mat-select formControlName="process" (selectionChange)="changeFilter('process')">
+          <mat-option [value]="item.acreditadoraProcesoId" *ngFor="let item of processList">{{
+            item.nombre
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="col-12 col-md-4">
+        <mat-label>Carrera</mat-label>
+        <mat-select formControlName="career" (selectionChange)="changeFilter('career')">
+          <mat-option [value]="item.carreraId" *ngFor="let item of careersList">
+            {{ item.nombre }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="col-12 col-md-4">
+        <mat-label>Fecha inicio proceso</mat-label>
+        <input matInput [matDatepicker]="dateStart" readonly formControlName="dateStart" />
+        <mat-datepicker-toggle matSuffix [for]="dateStart"></mat-datepicker-toggle>
+        <mat-datepicker #dateStart></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="col-12 col-md-4">
+        <mat-label>Fecha final proceso</mat-label>
+        <input matInput [matDatepicker]="dateEnd" readonly formControlName="dateEnd" />
+        <mat-datepicker-toggle matSuffix [for]="dateEnd"></mat-datepicker-toggle>
+        <mat-datepicker #dateEnd></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </form>
+
+  <div class="row pb-4">
+    <div class="col-md-12 container__table mat-elevation-z8">
+      <div class="table-container">
+        <table mat-table class="table mb-0" [dataSource]="dataSource">
+          <ng-container matColumnDef="number">
+            <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Número</th>
+            <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+              {{ row.numero }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="description">
+            <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Descripción</th>
+            <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+              {{ row.evidencia.descripcion }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="campus">
+            <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Campus</th>
+            <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+              {{ row.campusNombre }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="process">
+            <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Proceso</th>
+            <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+              {{ row.acreditadoraProcesoNombre }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="area">
+            <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Área</th>
+            <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+              {{ row.evidencia?.areaResponsabilidadNombre }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="subArea">
+            <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Sub área</th>
+            <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+              {{ row.subareaNombre }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="accomplished">
+            <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Cumplido</th>
+            <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+              {{ row.esAceptada ? 'Sí' : 'No' }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="responsible">
+            <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Responsable</th>
+            <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+              {{ row.evidencia.responsableNombre }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="dateCompressed">
+            <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Fecha compromiso</th>
+            <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+              {{ formatDate(row.evidencia.fechaCompromiso) }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="upload">
+            <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Cargar</th>
+            <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+              <button
+                mat-icon-button
+                aria-label="Cargar"
+                [matTooltip]="
+                  permissionValid || users.userSession.esAdmin
+                    ? 'Cargar'
+                    : permissionUpload && !row.esAceptada
+                    ? 'Cargar'
+                    : 'Ver'
+                "
+                (click)="cargarArchivos(row)"
+              >
+                <mat-icon>{{
+                  permissionValid || users.userSession.esAdmin
+                    ? 'upload'
+                    : permissionUpload && !row.esAceptada
+                    ? 'upload'
+                    : 'visibility'
+                }}</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="accepted">
+            <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Aceptada</th>
+            <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+              <mat-checkbox
+                [checked]="!!row.esAceptada"
+                (change)="acceptEvidenceRecord($event.checked, row)"
+                aria-label="Aceptado/Pendiente"
+                [matTooltip]="row.esAceptada ? 'Aceptado' : 'Pendiente'"
+                [disabled]="!permissionValid || !row.esCargada"
+              >
+              </mat-checkbox>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="tableColumn"></tr>
+
+          <tr mat-row *matRowDef="let row; columns: tableColumn"></tr>
+        </table>
+      </div>
+      <ng-template [ngIf]="dataSource.data.length === 0 && evidenceForm.valid">
+        <p class="empty-table mt-4">No hay datos para mostrar</p>
+      </ng-template>
+      <ng-template [ngIf]="evidenceForm.invalid">
+        <p class="empty-table mt-4">Termina los filtros para cargar la información</p>
+      </ng-template>
+      <mat-paginator #paginator class="ml-auto" showFirstLastButtons (page)="paginatorChange($event)"></mat-paginator>
+    </div>
+  </div>
+</div>

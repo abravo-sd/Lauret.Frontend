@@ -1,0 +1,65 @@
+<div class="content p-0">
+  <div class="row mt-2">
+    <div class="col-md-12 p-0">
+      <h1 class="title-page mt-2">Proceso de copiado</h1>
+    </div>
+    <mat-divider></mat-divider>
+  </div>
+  <form class="form__content" [formGroup]="copyProcessForm">
+    <div class="form__group mt-4">
+      <div class="row">
+        <h2>Proceso de copiado</h2>
+        <mat-divider> </mat-divider>
+        <mat-form-field appearance="outline" class="col-md-12 pt-4">
+          <mat-label>Año origen</mat-label>
+          <mat-select required formControlName="anioOrigen" [disabled]="yearList.length === 0">
+            <mat-option *ngFor="let item of yearList" [value]="item"> {{ item }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="copyProcessForm.get('anioOrigen').hasError('required')"
+            >Este campo es obligatorio</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-md-12">
+          <mat-label>Ciclo origen</mat-label>
+          <mat-select required formControlName="cicloOrigen" [disabled]="cycleList.length === 0">
+            <mat-option *ngFor="let item of cycleList" [value]="item"> {{ item }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="copyProcessForm.get('cicloOrigen').hasError('required')"
+            >Este campo es obligatorio</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-md-12">
+          <mat-label>Año destino</mat-label>
+          <mat-select required formControlName="anioDestino" [disabled]="yearList.length === 0">
+            <mat-option *ngFor="let item of yearList" [value]="item"> {{ item }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="copyProcessForm.get('anioDestino').hasError('required')"
+            >Este campo es obligatorio</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-md-12">
+          <mat-label>Ciclo destino</mat-label>
+          <mat-select required formControlName="cicloDestino" [disabled]="cycleList.length === 0">
+            <mat-option *ngFor="let item of cycleList" [value]="item"> {{ item }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="copyProcessForm.get('cicloDestino').hasError('required')"
+            >Este campo es obligatorio</mat-error
+          >
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <button
+            type="submit"
+            mat-raised-button
+            class="mt-3 form__submit"
+            color="primary"
+            [disabled]="copyProcessForm.invalid || disabled || !edit"
+          >
+            Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

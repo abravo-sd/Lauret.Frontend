@@ -1,0 +1,52 @@
+.modal__container {
+    min-width: 500px;
+    max-width: 900px;
+}
+
+.button__container {
+    position: relative;
+}
+
+.button__add {
+    position: absolute;
+    left: 0;
+    top: 10px;
+}
+
+// ::ng-deep .modal__container tr.mat-header-row {
+//     height: 26px;
+// }
+
+// :host {
+//     width: 100%;
+// }
+
+// :host ::ng-deep tr.mat-header-row {
+//     height: unset;
+// }
+
+:host ::ng-deep .mat-header-cell {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+:host ::ng-deep .mat-cell,
+.mat-footer-cell {
+    font-size: 12px;
+}
+
+:host ::ng-deep th.mat-header-cell,
+td.mat-cell,
+td.mat-footer-cell {
+    padding: 0px 8px 0px 8px;
+}
+
+:host ::ng-deep tr.mat-row,
+tr.mat-footer-row {
+    height: unset;
+}
+
+:host ::ng-deep .material-icons {
+    font-size: 18px;
+    line-height: 1.3;
+}

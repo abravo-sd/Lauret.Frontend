@@ -1,0 +1,56 @@
+<form [formGroup]="componentUvmRecordForm" (ngSubmit)="submit()">
+    <h1 mat-dialog-title>{{ title }}</h1>
+    <mat-divider> </mat-divider>
+    <mat-dialog-content>
+        <div class="container pt-4">
+            <div class="row">
+
+                <!-- <mat-form-field appearance="outline" class="col-md-12 mt-1">
+                    <mat-label>Clave</mat-label>
+                    <input appInputRestriction="clave" matInput required name="clave" formControlName="clave"
+                        [maxLength]="50" />
+                    <mat-error *ngIf="componentUvmRecordForm.get('clave').hasError('noWhitespace')">Este campo es
+                        obligatorio</mat-error>
+                    <mat-error *ngIf="componentUvmRecordForm.get('clave').hasError('maxlength')">El valor máximo de caracteres
+                        es 50
+                    </mat-error>
+                </mat-form-field> -->
+
+                <mat-form-field appearance="outline" class="col-md-12 mt-1">
+                    <mat-label>Componente UVM</mat-label>
+                    <input matInput required formControlName="nombreComponenteUvm" [maxLength]="200" />
+                    <mat-error *ngIf="componentUvmRecordForm.get('nombreComponenteUvm').hasError('noWhitespace')">Este
+                        campo es obligatorio</mat-error>
+                    <mat-error *ngIf="componentUvmRecordForm.get('nombreComponenteUvm').hasError('maxlength')">El valor
+                        máximo de caracteres es 200
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="col-md-12 mt-1">
+                    <mat-label>Definición de componente UVM </mat-label>
+                    <textarea rows="5" matInput required formControlName="descripcionComponenteUvm"
+                        [maxLength]="500" class="no-resize"></textarea>
+                    <mat-error
+                        *ngIf="componentUvmRecordForm.get('descripcionComponenteUvm').hasError('noWhitespace')">Este
+                        campo es obligatorio</mat-error>
+                    <mat-error *ngIf="componentUvmRecordForm.get('descripcionComponenteUvm').hasError('maxlength')">El
+                        valor máximo de caracteres es 500
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mt-2">
+                    <mat-checkbox formControlName="activo" [disabled]="!checkPermission(2)"> Activo </mat-checkbox>
+                </div>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-divider></mat-divider>
+    <mat-dialog-actions align="center" class="pb-4">
+        <button type="submit" mat-raised-button class="mt-3" color="primary"
+            [disabled]="componentUvmRecordForm.invalid || disabled || !edit">
+            Guardar
+        </button>
+        <button type="button" mat-raised-button class="mt-3" (click)="closeModalByConfimation()">Cancelar</button>
+    </mat-dialog-actions>
+</form>

@@ -1,0 +1,275 @@
+<form [formGroup]="evaluationPeriodRecordForm" (ngSubmit)="submit()">
+    <h1 mat-dialog-title>{{ title }}</h1>
+    <mat-divider> </mat-divider>
+    <mat-dialog-content>
+        <div class="container pt-4">
+            <div class="row mb-2">
+                <div class="col-md-4"></div>
+                <mat-form-field appearance="outline" class="col-md-8">
+                    <mat-label>Institución</mat-label>
+                    <mat-select required name="idInstitucion" formControlName="idInstitucion"
+                        [disabled]="institutionList.length === 0">
+                        <mat-option *ngFor="let item of institutionList" [value]="item.id"> {{ item.institucion
+                            }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="evaluationPeriodRecordForm.get('idInstitucion').hasError('required')">Este campo
+                        es obligatorio</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <h3 class="col-md-4 vertical">Seleccione año y ciclo:</h3>
+                <mat-form-field appearance="outline" class="col-md-4">
+                    <mat-label>Año</mat-label>
+                    <mat-select required name="anio" formControlName="anio" [disabled]="cycleList.length === 0">
+                        <mat-option *ngFor="let item of yearList" [value]="item.anioId"> {{ item.anio }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="evaluationPeriodRecordForm.get('anio').hasError('required')">Este campo es
+                        obligatorio</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="col-md-4">
+                    <mat-label>Ciclo</mat-label>
+                    <mat-select required name="idCiclo" formControlName="idCiclo" [disabled]="cycleList.length === 0">
+                        <mat-option *ngFor="let item of cycleList" [value]="item.id"> {{ item.nombre }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="evaluationPeriodRecordForm.get('idCiclo').hasError('required')">Este campo es
+                        obligatorio</mat-error>
+                </mat-form-field>
+            </div>
+
+            <ng-container *ngIf="evaluationPeriodData">
+                <div class="row">
+                    <h3 class="col-md-4 vertical"></h3>
+                    <mat-form-field appearance="outline" class="col-md-8">
+                        <mat-label>Procedimiento</mat-label>
+                        <input matInput name="proceso" formControlName="proceso"  />
+                        <!-- <mat-error *ngIf="evaluationPeriodRecordForm.get('proccess').hasError('required')">Este campo es
+                            obligatorio</mat-error> -->
+                    </mat-form-field>
+                </div>
+            </ng-container>
+
+            <div class="row">
+                <h3 class="col-md-4 vertical"></h3>
+                <h3 class="col-md-4 vertical center">Fecha Inicial:</h3>
+                <h3 class="col-md-4 vertical center">Fecha Final:</h3>
+            </div>
+
+            <div class="row">
+                <h3 class="col-md-4 vertical">Captura de Metas KPI:</h3>
+                <mat-form-field appearance="outline" class="container col-md-4"
+                    matTooltip="La fecha inicial debe ser igual o mayor al día en que se registra.">
+                    <mat-label>Fecha inicial </mat-label>
+                    <input matInput required name="fechaInicialMeta" formControlName="fechaInicialMeta" #fInicialMeta
+                        [min]="today" [matDatepicker]="fechaInicialMeta" (dateChange)="onFechaInicialMetaChange()" />
+                    <mat-datepicker-toggle matSuffix [for]="fechaInicialMeta"></mat-datepicker-toggle>
+                    <mat-datepicker #fechaInicialMeta disabled="false"></mat-datepicker>
+                    <mat-error *ngIf="evaluationPeriodRecordForm.get('fechaInicialMeta').hasError('required')">Este
+                        campo es obligatorio</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="container col-md-4"
+                    matTooltip="La fecha final debe ser igual o mayor a la fecha inicial de captura de metas.">
+                    <mat-label>Fecha final</mat-label>
+                    <input matInput required name="fechaFinMeta" formControlName="fechaFinMeta" #fFinMeta
+                        [min]="(!fInicialMeta.value) ? today : stringToDate(fInicialMeta.value)"
+                        [matDatepicker]="fechaFinMeta" (dateChange)="onFechaFinalMetaChange()" />
+                    <mat-datepicker-toggle matSuffix [for]="fechaFinMeta"></mat-datepicker-toggle>
+                    <mat-datepicker #fechaFinMeta disabled="false"></mat-datepicker>
+                    <mat-error *ngIf="evaluationPeriodRecordForm.get('fechaFinMeta').hasError('required')">Este campo es
+                        obligatorio</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="row">
+                <h3 class="col-md-4 vertical">Captura de Resultados de Metas por KPI:</h3>
+                <mat-form-field appearance="outline" class="container col-md-4"
+                    matTooltip="La fecha inicial debe ser mayor a la fecha final de captura de metas.">
+                    <mat-label>Fecha inicial</mat-label>
+                    <input matInput required name="fechaInicialCapturaResultados"
+                        formControlName="fechaInicialCapturaResultados" #fInicialResultados
+                        [min]="(!fFinMeta.value) ? today : addPeriodToDate(fFinMeta.value, 'd', 1)"
+                        [matDatepicker]="fechaInicialCapturaResultados"
+                        (dateChange)="onFechaInicialResultadosChange()" />
+                    <mat-datepicker-toggle matSuffix [for]="fechaInicialCapturaResultados"></mat-datepicker-toggle>
+                    <mat-datepicker #fechaInicialCapturaResultados disabled="false"></mat-datepicker>
+                    <mat-error
+                        *ngIf="evaluationPeriodRecordForm.get('fechaInicialCapturaResultados').hasError('required')">Este
+                        campo es obligatorio</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="container col-md-4"
+                    matTooltip="La fecha final debe ser igual o mayor a la fecha inicial de captura de resultados.">
+                    <mat-label>Fecha final</mat-label>
+                    <input matInput required name="fechaFinCapturaResultados"
+                        formControlName="fechaFinCapturaResultados" #fFinResultados
+                        [min]="(!fInicialResultados.value) ? today : stringToDate(fInicialResultados.value)"
+                        [matDatepicker]="fechaFinCapturaResultados" (dateChange)="onFechaFinalResultadosChange()" />
+                    <mat-datepicker-toggle matSuffix [for]="fechaFinCapturaResultados"></mat-datepicker-toggle>
+                    <mat-datepicker #fechaFinCapturaResultados disabled="false"></mat-datepicker>
+                    <mat-error
+                        *ngIf="evaluationPeriodRecordForm.get('fechaFinCapturaResultados').hasError('required')">Este
+                        campo es obligatorio</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="row">
+                <h3 class="col-md-4 vertical">Autoevaluación:</h3>
+                <mat-form-field appearance="outline" class="container col-md-4"
+                    matTooltip="La fecha inicial debe ser mayor a la fecha final de captura de resultados.">
+                    <mat-label>Fecha inicial</mat-label>
+                    <input matInput required name="fechaInicialAutoEvaluacion"
+                        formControlName="fechaInicialAutoEvaluacion" #fInicialAutoevaluacion
+                        [min]="(!fFinResultados.value) ? today : addPeriodToDate(fFinResultados.value, 'd', 1)"
+                        [matDatepicker]="fechaInicialAutoEvaluacion"
+                        (dateChange)="onFechaInicialAutoevaluacionChange()" />
+                    <mat-datepicker-toggle matSuffix [for]="fechaInicialAutoEvaluacion"></mat-datepicker-toggle>
+                    <mat-datepicker #fechaInicialAutoEvaluacion disabled="false"></mat-datepicker>
+                    <mat-error
+                        *ngIf="evaluationPeriodRecordForm.get('fechaInicialAutoEvaluacion').hasError('required')">Este
+                        campo es obligatorio</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="container col-md-4"
+                    matTooltip="La fecha final debe ser igual o mayor a la fecha inicial de autoevaluación.">
+                    <mat-label>Fecha final</mat-label>
+                    <input matInput required name="fechaFinAutoEvaluacion" formControlName="fechaFinAutoEvaluacion"
+                        #fFinAutoevaluacion
+                        [min]="(!fInicialAutoevaluacion.value) ? today : stringToDate(fInicialAutoevaluacion.value)"
+                        [matDatepicker]="fechaFinAutoEvaluacion" (dateChange)="onFechaFinalAutoevaluacionChange()" />
+                    <mat-datepicker-toggle matSuffix [for]="fechaFinAutoEvaluacion"></mat-datepicker-toggle>
+                    <mat-datepicker #fechaFinAutoEvaluacion disabled="false"></mat-datepicker>
+                    <mat-error
+                        *ngIf="evaluationPeriodRecordForm.get('fechaFinAutoEvaluacion').hasError('required')">Este campo
+                        es obligatorio</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="row">
+                <h3 class="col-md-4 vertical">Revisión de la Autoevaluación:</h3>
+                <mat-form-field appearance="outline" class="container col-md-4"
+                    matTooltip="La fecha inicial debe ser mayor a la fecha final de Autoevaluación.">
+                    <mat-label>Fecha inicial</mat-label>
+                    <input matInput required name="fechaInicialRevision" formControlName="fechaInicialRevision"
+                        #fInicialRevision
+                        [min]="(!fFinAutoevaluacion.value) ? today : addPeriodToDate(fFinAutoevaluacion.value, 'd', 1)"
+                        [matDatepicker]="fechaInicialRevision" (dateChange)="onFechaInicialRevisionChange()" />
+                    <mat-datepicker-toggle matSuffix [for]="fechaInicialRevision"></mat-datepicker-toggle>
+                    <mat-datepicker #fechaInicialRevision disabled="false"></mat-datepicker>
+                    <mat-error *ngIf="evaluationPeriodRecordForm.get('fechaInicialRevision').hasError('required')">Este
+                        campo es obligatorio</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="container col-md-4"
+                    matTooltip="La fecha final debe ser igual o mayor a la fecha inicial de revisión de autoevaluación.">
+                    <mat-label>Fecha final</mat-label>
+                    <input matInput required name="fechaFinRevision" formControlName="fechaFinRevision" #fFinRevision
+                        [min]="(!fInicialRevision.value) ? today : stringToDate(fInicialRevision.value)"
+                        [matDatepicker]="fechaFinRevision" (dateChange)="onFechaFinalRevisionChange()" />
+                    <mat-datepicker-toggle matSuffix [for]="fechaFinRevision"></mat-datepicker-toggle>
+                    <mat-datepicker #fechaFinRevision disabled="false"></mat-datepicker>
+                    <mat-error *ngIf="evaluationPeriodRecordForm.get('fechaFinRevision').hasError('required')">Este
+                        campo es obligatorio</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="row">
+                <h3 class="col-md-4 vertical">Captura de Evidencias:</h3>
+                <mat-form-field appearance="outline" class="container col-md-4"
+                    matTooltip="La fecha inicial debe ser igual o mayor a la fecha inicial de captura de metas. De ser posible que la fecha inicial esté vinculada de manera automática con la fecha inicial de la captura de metas.">
+                    <mat-label>Fecha inicial</mat-label>
+                    <input matInput required name="fechaInicialCargaEvidencia"
+                        formControlName="fechaInicialCargaEvidencia" #fInicialEvidencia
+                        [value]="(!fInicialMeta.value) ? null : stringToDate(fInicialMeta.value)"
+                        [matDatepicker]="fechaInicialCargaEvidencia" />
+                    <mat-datepicker-toggle matSuffix [for]="fechaInicialCargaEvidencia"></mat-datepicker-toggle>
+                    <mat-datepicker #fechaInicialCargaEvidencia disabled="true"></mat-datepicker>
+                    <mat-error
+                        *ngIf="evaluationPeriodRecordForm.get('fechaInicialCargaEvidencia').hasError('required')">Este
+                        campo es obligatorio</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="container col-md-4"
+                    matTooltip="Debe ser igual a la fecha final de la Revisión de la Autoevaluación. De ser posible que la fecha final esté vinculada de manera automática con la fecha final de la Revisión de la Autoevaluación.">
+                    <mat-label>Fecha final</mat-label>
+                    <input matInput required name="fechaFinCargaEvidencia" formControlName="fechaFinCargaEvidencia"
+                        #fFinalEvidencia [value]="(!fFinRevision.value) ? null : stringToDate(fFinRevision.value)"
+                        [matDatepicker]="fechaFinCargaEvidencia" />
+                    <mat-datepicker-toggle matSuffix [for]="fechaFinCargaEvidencia"></mat-datepicker-toggle>
+                    <mat-datepicker #fechaFinCargaEvidencia disabled="true"></mat-datepicker>
+                    <mat-error
+                        *ngIf="evaluationPeriodRecordForm.get('fechaFinCargaEvidencia').hasError('required')">Este campo
+                        es obligatorio</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="row">
+                <h3 class="col-md-4 vertical">Planes de Mejora:</h3>
+                <mat-form-field appearance="outline" class="container col-md-4"
+                    matTooltip="La fecha inicial debe ser mayor a la fecha final de la Revisión de la Autoevaluación.">
+                    <mat-label>Fecha inicial</mat-label>
+                    <input matInput required name="fechaInicialPlanMejora" formControlName="fechaInicialPlanMejora"
+                        #fInicialMejora
+                        [min]="(!fFinRevision.value) ? today : addPeriodToDate(fFinRevision.value, 'd', 1)"
+                        [matDatepicker]="fechaInicialPlanMejora" (dateChange)="onFechaInicialMejoraChange()" />
+                    <mat-datepicker-toggle matSuffix [for]="fechaInicialPlanMejora"></mat-datepicker-toggle>
+                    <mat-datepicker #fechaInicialPlanMejora disabled="false"></mat-datepicker>
+                    <mat-error
+                        *ngIf="evaluationPeriodRecordForm.get('fechaInicialPlanMejora').hasError('required')">Este campo
+                        es obligatorio</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="container col-md-4"
+                    matTooltip="La fecha final debe ser igual o mayor a la fecha inicial de plan de mejora.">
+                    <mat-label>Fecha final</mat-label>
+                    <input matInput required name="fechaFinPlanMejora" formControlName="fechaFinPlanMejora"
+                        #fFinPlanMejora [min]="(!fInicialMejora.value) ? today : stringToDate(fInicialMejora.value)"
+                        [matDatepicker]="fechaFinPlanMejora" (dateChange)="onFechaFinalMejoraChange()" />
+                    <mat-datepicker-toggle matSuffix [for]="fechaFinPlanMejora"></mat-datepicker-toggle>
+                    <mat-datepicker #fechaFinPlanMejora disabled="false"></mat-datepicker>
+                    <mat-error *ngIf="evaluationPeriodRecordForm.get('fechaFinPlanMejora').hasError('required')">Este
+                        campo es obligatorio</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="row">
+                <h3 class="col-md-4 vertical">Revisiones centrales por Auditorías:</h3>
+                <mat-form-field appearance="outline" class="container col-md-4"
+                    matTooltip="La fecha inicial debe ser igual o mayor a la fecha de la captura de metas. De ser posible que la fecha inicial esté vinculada de manera automática con la fecha inicial de la captura de metas.">
+                    <mat-label>Fecha inicial</mat-label>
+                    <input matInput required name="fechaInicialAuditoria" formControlName="fechaInicialAuditoria"
+                        #fInicialAuditoria [value]="(!fInicialMeta.value) ? null : stringToDate(fInicialMeta.value)"
+                        [matDatepicker]="fechaInicialAuditoria" />
+                    <mat-datepicker-toggle matSuffix [for]="fechaInicialAuditoria"></mat-datepicker-toggle>
+                    <mat-datepicker #fechaInicialAuditoria></mat-datepicker>
+                    <mat-error *ngIf="evaluationPeriodRecordForm.get('fechaInicialAuditoria').hasError('required')">Este
+                        campo es obligatorio</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="container col-md-4"
+                    matTooltip="Si se requiere fecha final, tendría que ser dos años posteriores a la fecha inicial de captura de metas.">
+                    <mat-label>Fecha final</mat-label>
+                    <input matInput required name="fechaFinAuditoria" formControlName="fechaFinAuditoria" #fFinAuditoria
+                        [min]="(!fInicialMeta.value) ? addPeriodToDate(today.toString(), 'y', 2) : addPeriodToDate(fInicialMeta.value, 'y', 2)"
+                        [matDatepicker]="fechaFinAuditoria" />
+                    <mat-datepicker-toggle matSuffix [for]="fechaFinAuditoria"></mat-datepicker-toggle>
+                    <mat-datepicker #fechaFinAuditoria disabled="false"></mat-datepicker>
+                    <mat-error *ngIf="evaluationPeriodRecordForm.get('fechaFinAuditoria').hasError('required')">Este
+                        campo es obligatorio</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 mt-2">
+                    <mat-checkbox formControlName="activo" [disabled]="!checkPermission(2)"> Activo </mat-checkbox>
+                </div>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center" class="pb-4">
+        <button type="submit" mat-raised-button class="mt-3" color="primary" [disabled]="evaluationPeriodRecordForm.invalid ||
+                !edit || !evaluationPeriodRecordForm.dirty ||               
+                (
+                        !fInicialMeta.value || !fFinMeta.value|| !fInicialResultados.value || !fFinResultados.value ||
+                        !fInicialAutoevaluacion.value || !fFinAutoevaluacion.value || !fInicialRevision.value ||
+                        !fFinRevision.value || !fInicialEvidencia.value || !fFinalEvidencia.value || !fInicialMejora.value ||
+                        !fFinPlanMejora.value || !fInicialAuditoria.value || !fFinAuditoria.value
+                )">
+
+            Guardar
+        </button>
+        <button type="button" mat-raised-button class="mt-3" (click)="closeModalByConfimation()">Cancelar</button>
+    </mat-dialog-actions>
+</form>

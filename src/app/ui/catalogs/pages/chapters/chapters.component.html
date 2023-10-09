@@ -1,0 +1,89 @@
+<div class="content p-0">
+    <div class="row mt-2">
+        <div class="col-md-12 p-0">
+            <h1 class="title-page mt-2">Capítulos</h1>
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+    <!-- <div class="row mt-1">
+        <div class="col-12" align="end">
+            <button type="button" mat-raised-button color="primary" class="btn-text mt-3" (click)="openCopy()">
+                <mat-icon>copy_all</mat-icon> Copiar valores
+            </button>
+        </div>
+    </div> -->
+    <form [formGroup]="chapterForm" autocomplete="off">
+        <div class="row mt-3">
+            <mat-form-field appearance="outline" class="col-12 col-md-4">
+                <mat-label>Acreditadoras</mat-label>
+                <mat-select formControlName="accreditation" (selectionChange)="changeFilter('accreditation')">
+                    <mat-option [value]="item.acreditadoraId" *ngFor="let item of accreditorList">
+                        {{ item.nombre }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="col-12 col-md-4">
+                <mat-label>Proceso</mat-label>
+                <mat-select name="process" formControlName="process" (selectionChange)="changeFilter('process')">
+                    <mat-option [value]="item.acreditadoraProcesoId" *ngFor="let item of processList">{{
+                        item.nombre
+                        }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="col-12 col-md-4">
+                <mat-label>Buscar Capítulo</mat-label>
+                <input type="text" matInput #input (keyup)="applyFilter($event)"/>
+            </mat-form-field>
+        </div>
+    </form>
+
+    <div class="row pb-4">
+        <div class="col-md-12 container__table mat-elevation-z8">
+            <table mat-table class="table mb-0" [dataSource]="dataSource">
+                <!-- <ng-container matColumnDef="key">
+                    <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Clave</th>
+                    <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+                        {{ row.capituloId }}
+                    </td>
+                </ng-container> -->
+
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Nombre</th>
+                    <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+                        {{ row.nombre }}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="description">
+                    <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Descripción</th>
+                    <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+                        {{ row.descripcion }}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="edit">
+                    <th mat-header-cell class="table__header table__cell--actions" *matHeaderCellDef>Acciones</th>
+                    <td mat-cell class="table__cell table__cell--actions" *matCellDef="let row; let index = index">
+                        <div class="d-flex justify-content-center">
+                            <button mat-button matTooltip="Ver" (click)="openRecord('edit', row)">
+                                <mat-icon class="show__icon">visibility</mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="['name', 'description', 'edit']"></tr>
+
+                <tr mat-row *matRowDef="let row; columns: ['name', 'description', 'edit']"></tr>
+            </table>
+            <ng-template [ngIf]="dataSource.data.length === 0 && chapterForm.valid">
+                <p class="empty-table mt-4">No hay datos para mostrar</p>
+            </ng-template>
+            <ng-template [ngIf]="chapterForm.invalid">
+                <p class="empty-table mt-4">Termina los filtros para cargar la información</p>
+            </ng-template>
+            <mat-paginator #paginator class="ml-auto" showFirstLastButtons
+                (page)="paginatorChange($event)"></mat-paginator>
+        </div>
+    </div>
+</div>

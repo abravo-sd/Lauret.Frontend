@@ -1,0 +1,96 @@
+<form [formGroup]="ponderacionRecordForm" (ngSubmit)="submit()">
+    <h1 mat-dialog-title>{{ title }}</h1>
+    <mat-divider> </mat-divider>
+    <mat-dialog-content>
+        <div class="container pt-4">
+            <div class="row">
+                <mat-form-field appearance="outline" class="col-md-12">
+                    <mat-label>Nivel Modalidad</mat-label>
+                    <mat-select required name="nivelModalidadId" formControlName="nivelModalidadId"
+                        (selectionChange)="onNivelModalidadSelected($event.value)">
+                        <mat-option *ngFor="let item of nivelModalidadList" [value]="item.id">
+                            {{ item.getLevelModality() }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="ponderacionRecordForm.get('nivelModalidadId').hasError('required')">
+                        Este campo es obligatorio
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="col-md-12">
+                    <mat-label>Componente</mat-label>
+                    <mat-select required name="componenteId" formControlName="componenteId">
+                        <mat-option *ngFor="let item of componenteList" [value]="item.id">
+                            {{ item.nombre }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="ponderacionRecordForm.get('componenteId').hasError('required')">
+                        Este campo es obligatorio
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="col-md-12 mt-1">
+                    <mat-label>Ponderación</mat-label>
+                    <input matInput required name="puntuacion" formControlName="puntuacion" [maxLength]="3" [min]="0"
+                        [max]="100" appInputRestriction="number" (change)="actualizaTotalPuntuaciones()" />
+                    <mat-error *ngIf="ponderacionRecordForm.get('puntuacion').hasError('noWhitespace')">
+                        Este campo es obligatorio
+                    </mat-error>
+                    <mat-error *ngIf="ponderacionRecordForm.get('puntuacion').hasError('min')">
+                        El valor mínimo es de 0
+                    </mat-error>
+                    <mat-error *ngIf="ponderacionRecordForm.get('puntuacion').hasError('max')">
+                        El valor máximo es de 100
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mt-2">
+                    <mat-checkbox formControlName="activo" [disabled]="!checkPermission(2)"> Activo </mat-checkbox>
+                </div>
+            </div>
+
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center" class="pb-4">
+        <button type="submit" mat-raised-button class="mt-3" color="primary"
+            [disabled]="ponderacionRecordForm.invalid || disabled || !edit">Guardar</button>
+        <button type="button" mat-raised-button class="mt-3" (click)="closeModalByConfimation()">Cancelar</button>
+    </mat-dialog-actions>
+</form>
+<div class="col-md-12 container__table mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" class="table mb-0">
+
+        <ng-container matColumnDef="component">
+            <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Componente</th>
+            <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+                {{ row.nombre }}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="weight">
+            <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Ponderación</th>
+            <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+                <input type="number" [value]="row.puntuacion" style="text-align: center;"
+                    (change)="updatePuntuacion(row, $event)">
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['component', 'weight']">
+        </tr>
+        <tr mat-row *matRowDef="let row; columns: ['component', 'weight']">
+        </tr>
+    </table>
+    <ng-template [ngIf]="dataSource.data.length === 0">
+        <p class="empty-table mt-4">No hay datos para mostrar</p>
+    </ng-template>
+    <div class="mat-row cdk-row ng-star-inserted" style="">
+        <div
+            class="mat-header-cell cdk-header-cell table__header table__cell-name cdk-column-component mat-column-component ng-star-inserted mat-cell cdk-cell table__cell table__cell-name cdk-column-component mat-column-component ng-star-inserted">
+            Total: {{totalPuntuacion}}
+        </div>
+        <div
+            class="mat-cell cdk-cell table__cell table__cell-name cdk-column-weight mat-column-weight ng-star-inserted">
+        </div>
+    </div>
+</div>

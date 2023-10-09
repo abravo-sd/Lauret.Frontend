@@ -1,0 +1,13 @@
+@media only screen and (min-width: 1000px) {
+  .white_space {
+    white-space: nowrap !important;
+    word-wrap: nowrap;
+  }
+}
+
+@media only screen and (max-width: 999px) {
+  .white_space {
+    white-space: pre-line !important;
+    word-wrap: nowrap;
+  }
+}

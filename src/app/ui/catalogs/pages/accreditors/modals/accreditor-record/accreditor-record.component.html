@@ -1,0 +1,78 @@
+<div class="modal__container">
+    <h1 mat-dialog-title>Acreditadora</h1>
+    <mat-divider> </mat-divider>
+    <mat-dialog-content>
+        <div class="container pt-4">
+            <div class="row">
+                <form [formGroup]="accreditorRecordForm" autocomplete="off">
+                    <mat-form-field appearance="outline" class="col-md-12 mt-1">
+                        <mat-label>Clave</mat-label>
+                        <input appInputRestriction="key" matInput required [maxLength]="50"
+                            formControlName="acreditadoraId" name="acreditadoraId" [readonly]="dataAccreditor.acreditadoraId ? true : false" />
+                        <mat-error *ngIf="accreditorRecordForm.get('acreditadoraId').hasError('noWhitespace')">Este
+                            campo es obligatorio</mat-error>
+                        <mat-error *ngIf="accreditorRecordForm.get('acreditadoraId').hasError('maxlength')">El valor
+                            máximo de caracteres es 50
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-md-12 mt-1">
+                        <mat-label>Nombre</mat-label>
+                        <input matInput required [maxLength]="500" formControlName="nombre" name="nombre" />
+                        <mat-error *ngIf="accreditorRecordForm.get('nombre').hasError('noWhitespace')">Este campo es
+                            obligatorio</mat-error>
+                        <mat-error *ngIf="accreditorRecordForm.get('nombre').hasError('maxlength')">El valor máximo de
+                            caracteres es 500
+                        </mat-error>
+                    </mat-form-field>
+                    <div class="col-md-12 mt-2">
+                        <mat-checkbox formControlName="activo"> Activo </mat-checkbox>
+                    </div>
+                </form>
+
+                <mat-divider class="mt-2"></mat-divider>
+
+                <div class="col-12 mt-2">
+                    <h3>Lista de procesos</h3>
+                </div>
+
+                <div class="col-md-12 container__table mat-elevation-z8 mb-4 mt-3">
+                    <table mat-table class="table mb-0" [dataSource]="dataSource">
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Nombre</th>
+                            <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+                                {{ row.nombre }}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="startDate">
+                            <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Fecha inicio
+                                proceso</th>
+                            <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+                                {{ row.fechaInicio | date : 'd/M/yy' }}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="endDate">
+                            <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Fecha fin</th>
+                            <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+                                {{ row.fechaFin | date : 'd/M/yy' }}
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="['name', 'startDate', 'endDate']"></tr>
+
+                        <tr mat-row *matRowDef="let row; columns: ['name', 'startDate', 'endDate']"></tr>
+                    </table>
+                    <ng-template [ngIf]="dataSource.data.length === 0">
+                        <p class="empty-table mt-4">No hay datos para mostrar</p>
+                    </ng-template>
+                    <mat-paginator [pageSizeOptions]="[10, 20, 30, 50, 80]" showFirstLastButtons></mat-paginator>
+                </div>
+            </div>
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="center" class="pb-4">
+        <button type="button" mat-raised-button class="mt-3" (click)="closeModalByConfimation()">Cancelar</button>
+    </mat-dialog-actions>
+</div>

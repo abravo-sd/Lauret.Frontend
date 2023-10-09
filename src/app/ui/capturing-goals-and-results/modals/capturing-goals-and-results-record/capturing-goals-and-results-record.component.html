@@ -1,0 +1,116 @@
+<div class="row">
+  <h1 mat-dialog-title class="col-md-11">Edición de metas y resultados</h1>
+
+  <button type="button" class="col-md-1 mb-2" (click)="closeModalByConfimation()">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <mat-divider> </mat-divider>
+  <mat-dialog-content>
+    <div class="row pb-4">
+      <div class="col-md-12 container__table mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" class="table mb-0">
+          <ng-container matColumnDef="component">
+            <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Componente</th>
+            <td mat-cell class="table__cell table__cell-id" *matCellDef="let row"></td>
+          </ng-container>
+
+          <ng-container matColumnDef="evaluationElement">
+            <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Elemento de evaluación</th>
+            <td mat-cell class="table__cell table__cell-name" *matCellDef="let row"></td>
+          </ng-container>
+
+          <ng-container matColumnDef="indicator">
+            <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Indicador</th>
+            <td mat-cell class="table__cell table__cell-name" *matCellDef="let row"></td>
+          </ng-container>
+
+          <ng-container matColumnDef="previousGoal">
+            <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Meta anterior</th>
+            <td mat-cell class="table__cell table__cell-name" *matCellDef="let row"></td>
+          </ng-container>
+
+          <ng-container matColumnDef="currentGoal">
+            <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Meta actual</th>
+            <td mat-cell class="table__cell table__cell-name" *matCellDef="let row"></td>
+          </ng-container>
+          <ng-container matColumnDef="previousResult">
+            <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Resultado anterior</th>
+            <td mat-cell class="table__cell table__cell-name" *matCellDef="let row"></td>
+          </ng-container>
+
+          <ng-container matColumnDef="currentResult">
+            <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Resultado actual</th>
+            <td mat-cell class="table__cell table__cell-name" *matCellDef="let row"></td>
+          </ng-container>
+
+          <ng-container matColumnDef="compliance">
+            <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Cumplimiento</th>
+            <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+              {{ row.inicio }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="justification">
+            <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Cumplimiento</th>
+            <td mat-cell class="table__cell table__cell-name" *matCellDef="let row">
+              {{ row.inicio }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="edit">
+            <th mat-header-cell class="table__header table__cell--actions" *matHeaderCellDef>justification</th>
+            <td mat-cell class="table__cell table__cell--actions" *matCellDef="let row; let index = index">
+              <div class="d-flex justify-content-center">
+                <button mat-button matTooltip="Editar">
+                  <mat-icon class="edit__icon">edit</mat-icon>
+                </button>
+
+                <button mat-button matTooltip="Eliminar">
+                  <mat-icon class="delete__icon">save</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+          <tr
+            mat-header-row
+            *matHeaderRowDef="[
+              'component',
+              'evaluationElement',
+              'indicator',
+              'previousGoal',
+              'currentGoal',
+              'previousResult',
+              'currentResult',
+              'compliance',
+              'justification',
+              'edit'
+            ]"
+          ></tr>
+          <tr
+            mat-row
+            *matRowDef="
+              let row;
+              columns: [
+                'component',
+                'evaluationElement',
+                'indicator',
+                'previousGoal',
+                'currentGoal',
+                'previousResult',
+                'currentResult',
+                'compliance',
+                'justification',
+                'edit'
+              ]
+            "
+          ></tr>
+        </table>
+        <!-- <ng-template [ngIf]="dataSource.data.length === 0">
+        <p class="empty-table mt-4">No hay datos para mostrar</p>
+      </ng-template> -->
+        <mat-paginator #paginator class="ml-auto" showFirstLastButtons (page)="paginatorChange($event)"></mat-paginator>
+      </div>
+    </div>
+  </mat-dialog-content>
+</div>

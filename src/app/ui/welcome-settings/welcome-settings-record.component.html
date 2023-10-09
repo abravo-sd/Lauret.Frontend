@@ -1,0 +1,115 @@
+<form [formGroup]="settingsForm" (ngSubmit)="submit()">
+    <div class="row mt-2">
+        <div class="col-md-12 p-0">
+            <h1 class="title-page mt-2">Configuración de Bienvenida</h1>
+        </div>
+    </div>
+    <mat-tab-group>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                Editor
+            </ng-template>
+            <ng-container *ngTemplateOutlet="configuration"></ng-container>
+        </mat-tab>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                Carga de Archivos
+            </ng-template>
+            <ng-container *ngTemplateOutlet="fileUpload"></ng-container>
+        </mat-tab>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                Listado de Archivos
+            </ng-template>
+            <ng-container *ngTemplateOutlet="fileList"></ng-container>
+        </mat-tab>
+    </mat-tab-group>
+    <ng-template #configuration>
+        <div class="container mb-2">
+            <div class="row"></div>
+            <div class="col-md-12">
+
+                <div class="content">
+                    <div class="row mt-2 mb-4">
+                        <div class="col-md-12">
+                            <quill-editor #editorSettings name="editorSettings" formControlName="editorSettings"
+                                (onContentChanged)="contentChanged($event)" [modules]="quillEditorModuleOptions"
+                                placeholder="Agregar contenido"></quill-editor>
+                        </div>
+                    </div>
+                    <div class="row mt-4 mb-4"></div>
+                    <div class="row">
+                        <div class="col-md-12 d-flex justify-content-center">
+                            <button type="submit" mat-raised-button class="mt-3" color="primary"
+                                [disabled]="!settingsForm.valid || disabled || !edit">Guardar</button>
+                            &nbsp;&nbsp;
+                            <button type="button" mat-raised-button class="mt-3" (click)="cancelByConfimation()">
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template #fileUpload>
+        <div class="mb-2 mt-3">
+            <ngx-file-drag-drop required emptyPlaceholder="Arrastre y coloque los archivos que desea adjuntar"
+                class="mt-3 Drag_Style" activeBorderColor="#3F51B5" [multiple]="false"
+                (valueChanged)="UploadFileToWelcomeModule($event)" ></ngx-file-drag-drop>
+        </div>
+        <!-- <input hidden="true" name="" formControlName=""> -->
+    </ng-template>
+    <ng-template #fileList>
+        <div class="mb-2 mt-3 col-md-12 container container__table mat-elevation-z2">
+            <!-- <ng-template [ngIf]="data.listaArchivos !== null"> -->
+            <table mat-table class="table mb-0" [dataSource]="listaArchivos">
+                <ng-container matColumnDef="file">
+                    <th mat-header-cell class="table__header" *matHeaderCellDef>Archivo</th>
+                    <td mat-cell class="table__cell" *matCellDef="let row">
+                        {{ row.name }}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell class="table__header table__cell--actions" *matHeaderCellDef>Acciones</th>
+                    <td mat-cell class="table__cell table__cell--actions" *matCellDef="let row; let index = index">
+                        <div class="d-flex justify-content-center">
+                            <button mat-button type="button" matTooltip="Descargar" (click)="downloadFile(row)">
+                                <mat-icon class="download__icon">cloud_download</mat-icon>
+                            </button>
+                            <button mat-button type="button" matTooltip="Eliminar" (click)="deleteFile(row)">
+                                <mat-icon class="delete__icon">delete_forever</mat-icon>
+                            </button>
+
+                            <!-- Mostrar botón de "Vista previa" o "Copiar URL" según la lógica -->
+                            <ng-container *ngIf="canPreviewFile(row.name); else copyUrlButton">
+                                <button mat-button type="button" matTooltip="Vista previa" (click)="previewFile(row)">
+                                    <mat-icon class="preview__icon">visibility</mat-icon>
+                                </button>
+                            </ng-container>
+                            <ng-template #copyUrlButton>
+                                <button mat-button type="button" matTooltip="Copiar URL" (click)="copyUrl(row)">
+                                    <mat-icon class="copy__icon">content_copy</mat-icon>
+                                </button>
+                            </ng-template>
+
+                        </div>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="['file', 'actions']">
+                </tr>
+                <tr mat-row *matRowDef="let row; columns: ['file', 'actions']">
+                </tr>
+            </table>
+            <!-- </ng-template> -->
+            <!-- <p>{{listaArchivos | json}}</p> -->
+            <ng-template [ngIf]="listaArchivos.length === 0 ">
+                <p class="empty-table mt-4">No hay datos para mostrar</p>
+            </ng-template>
+
+            <!-- <mat-paginator #paginator class="ml-auto" showFirstLastButtons
+            (page)="paginatorChange($event)"></mat-paginator> -->
+        </div>
+    </ng-template>
+
+</form>

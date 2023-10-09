@@ -1,0 +1,137 @@
+<div class="row">
+  <h1 mat-dialog-title class="col-md-11">Edición de evidencias</h1>
+  <button type="button" class="col-md-1 mb-2" (click)="closeModalByConfimation()">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <mat-divider> </mat-divider>
+  <mat-dialog-content>
+    <div class="row pb-4">
+      <div class="col-md-12 container__table mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" class="table mb-0">
+          <ng-container matColumnDef="id">
+            <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Id</th>
+            <td mat-cell class="table__cell table__cell-id" *matCellDef="let row"></td>
+          </ng-container>
+
+          <ng-container matColumnDef="levelModality">
+            <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Nivel / Modalidad</th>
+            <td mat-cell class="table__cell table__cell-id" *matCellDef="let row"></td>
+          </ng-container>
+
+          <ng-container matColumnDef="responsibilityAreas">
+            <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Área responsable</th>
+            <td mat-cell class="table__cell table__cell-name" *matCellDef="let row"></td>
+          </ng-container>
+
+          <ng-container matColumnDef="year">
+            <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Año</th>
+            <td mat-cell class="table__cell table__cell-name" *matCellDef="let row"></td>
+          </ng-container>
+
+          <ng-container matColumnDef="cycle">
+            <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Ciclo</th>
+            <td mat-cell class="table__cell table__cell-name" *matCellDef="let row"></td>
+          </ng-container>
+
+          <ng-container matColumnDef="component">
+            <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Componente</th>
+            <td mat-cell class="table__cell table__cell-name" *matCellDef="let row"></td>
+          </ng-container>
+
+          <ng-container matColumnDef="evaluationElement">
+            <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Elemento de evalución</th>
+            <td mat-cell class="table__cell table__cell-name" *matCellDef="let row"></td>
+          </ng-container>
+
+          <ng-container matColumnDef="nameEvidence">
+            <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Nombre evidencia</th>
+            <td mat-cell class="table__cell table__cell-name" *matCellDef="let row"></td>
+          </ng-container>
+
+          <ng-container matColumnDef="amountEvidence">
+            <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Cantidad de evidencia</th>
+            <td mat-cell class="table__cell table__cell-name" *matCellDef="let row"></td>
+          </ng-container>
+
+          <ng-container matColumnDef="upload">
+            <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Cargar</th>
+            <td mat-cell class="table__cell table__cell-name" *matCellDef="let row"></td>
+          </ng-container>
+
+          <ng-container matColumnDef="accepted">
+            <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Aceptada</th>
+            <td mat-cell class="table__cell table__cell-name" *matCellDef="let row"></td>
+          </ng-container>
+
+          <ng-container matColumnDef="download">
+            <th mat-header-cell class="table__header table__cell-name" *matHeaderCellDef>Descarga</th>
+            <td mat-cell class="table__cell table__cell-name" *matCellDef="let row"></td>
+          </ng-container>
+
+          <ng-container matColumnDef="edit">
+            <th mat-header-cell class="table__header table__cell--actions" *matHeaderCellDef>Acciones</th>
+            <td mat-cell class="table__cell table__cell--actions" *matCellDef="let row; let index = index">
+              <div class="d-flex justify-content-center">
+                <button mat-button matTooltip="Editar">
+                  <mat-icon class="edit__icon">edit</mat-icon>
+                </button>
+                <button mat-button matTooltip="Guardar">
+                  <mat-icon class="edit__icon">save</mat-icon>
+                </button>
+                <button mat-button matTooltip="Eliminar">
+                  <mat-icon class="edit__icon">delete</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+          <tr
+            mat-header-row
+            *matHeaderRowDef="[
+              'id',
+              'levelModality',
+              'responsibilityAreas',
+              'year',
+              'cycle',
+              'component',
+              'evaluationElement',
+              'nameEvidence',
+              'amountEvidence',
+              'upload',
+              'accepted',
+              'download',
+              'edit'
+            ]"
+          ></tr>
+          <tr
+            mat-row
+            *matRowDef="
+              let row;
+              columns: [
+                'id',
+                'levelModality',
+                'responsibilityAreas',
+                'year',
+                'cycle',
+                'component',
+                'evaluationElement',
+                'nameEvidence',
+                'amountEvidence',
+                'upload',
+                'accepted',
+                'download',
+                'edit'
+              ]
+            "
+          ></tr>
+        </table>
+        <!-- <ng-template [ngIf]="dataSource.data.length === 0">
+          <p class="empty-table mt-4">No hay datos para mostrar</p>
+        </ng-template> -->
+
+        <!-- <mat-paginator #paginator class="ml-auto" showFirstLastButtons (page)="paginatorChange($event)"></mat-paginator> -->
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+  </mat-dialog-content>
+</div>

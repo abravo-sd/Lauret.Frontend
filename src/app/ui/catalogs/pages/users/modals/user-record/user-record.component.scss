@@ -1,0 +1,36 @@
+// mat-dialog-content {
+//   overflow: hidden;
+// }
+
+// .design {
+//   background: #f9f8f8;
+//   border-radius: 15px solid #9f9f9f;
+//   color: rgb(0, 0, 0);
+//   padding: 1em;
+//   position: absolute;
+//   text-align: center;
+//   width: 250px;
+// }
+
+// .:design {
+//   bottom: 0px;
+//   left: -0rem;
+//   border-bottom: 8px solid transparent;
+//   border-left: 8px solid transparent;
+//   border-right: 8px solid #333;
+//   border-top: 8px solid #333;
+//   content: ' ';
+//   position: absolute;
+// }
+
+:host ::ng-deep .mat-list-base {
+    margin-bottom:unset;
+    min-height: calc(48px);
+}
+
+:host ::ng-deep .mat-list-base .mat-list-item,
+:host ::ng-deep .mat-list-base .mat-list-option {
+    // background: mat-color($primary, 0.09);
+    font-size: 14px;
+    height: 36px;
+}

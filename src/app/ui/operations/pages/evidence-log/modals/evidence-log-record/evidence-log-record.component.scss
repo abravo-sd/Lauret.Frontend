@@ -1,0 +1,29 @@
+form {
+  min-width: 500px;
+}
+
+.fileList__title {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.filesList__item {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  padding-top: 15px;
+}
+
+.filesList__name--link {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.filesList__icon {
+  cursor: pointer;
+}
+
+.upload-files .row {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}

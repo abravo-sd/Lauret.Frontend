@@ -1,0 +1,66 @@
+<div class="content p-0">
+    <div class="row mt-2">
+        <div class="col-md-12 p-0">
+            <h1 class="title-page mt-2">Instituciones Acreditadoras</h1>
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+    <div class="row mt-4">
+        <div class="col-lg-6 col-12">
+            <button type="button" mat-raised-button color="primary" class="btn-text mt-3 ms-3"
+                (click)="getAllAccreditorsExcel()">
+                <mat-icon>description</mat-icon> Exportar Excel
+            </button>
+        </div>
+        <mat-form-field appearance="outline" class="col-lg-6 col-12 mt-1 pl-2">
+            <mat-label>Buscar Institución Acreditadora</mat-label>
+            <input type="text" matInput #input (keyup)="applyFilter($event)"/>
+        </mat-form-field>
+    </div>
+    <div class="row pb-4">
+        <div class="col-md-12 container__table mat-elevation-z8">
+            <table mat-table class="table mb-0" [dataSource]="dataSource">
+                <ng-container matColumnDef="acreditadoraId">
+                    <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Clave</th>
+                    <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+                        {{ row.acreditadoraId }}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Nombre</th>
+                    <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+                        {{ row.nombre }}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="active">
+                    <th mat-header-cell class="table__header table__cell-id" *matHeaderCellDef>Activo</th>
+                    <td mat-cell class="table__cell table__cell-id" *matCellDef="let row">
+                        <mat-checkbox class="example-margin" [disabled]="true" [checked]="row.activo"></mat-checkbox>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="edit">
+                    <th mat-header-cell class="table__header table__cell--actions" *matHeaderCellDef>Acciones</th>
+                    <td mat-cell class="table__cell table__cell--actions" *matCellDef="let row; let index = index">
+                        <div class="d-flex justify-content-center">
+                            <button mat-button matTooltip="Ver" (click)="openAccreditorRecord(row)">
+                                <mat-icon class="show__icon">visibility</mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="['acreditadoraId', 'name', 'active', 'edit']"></tr>
+
+                <tr mat-row *matRowDef="let row; columns: ['acreditadoraId', 'name', 'active', 'edit']"></tr>
+            </table>
+            <ng-template [ngIf]="dataSource.data.length === 0">
+                <p class="empty-table mt-4">No hay datos para mostrar</p>
+            </ng-template>
+            <mat-paginator #paginator class="ml-auto" showFirstLastButtons
+                (page)="paginatorChange($event)"></mat-paginator>
+        </div>
+    </div>
+</div>

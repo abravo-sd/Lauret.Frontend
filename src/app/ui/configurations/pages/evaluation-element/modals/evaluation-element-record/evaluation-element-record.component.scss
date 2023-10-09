@@ -1,0 +1,73 @@
+@import "variables";
+
+.Drag_Style {
+    width: 100%;
+    height: 7rem;
+    max-width: 100%;
+}
+
+:host ::ng-deep .mat-tab-label.mat-tab-label-active {
+    background: mat-color($primary, 0.09);
+}
+
+:host ::ng-deep .mat-dialog-content {
+    overflow: auto;
+}
+
+// :host ::ng-deep .mat-tab-body {
+//     font-size: 14px;
+// }
+
+:host ::ng-deep .mat-tab-body-content {
+    overflow: auto;
+    // font-size: 14px;
+}
+
+:host ::ng-deep .mat-tab-header {
+    top: 0;
+    z-index: 9999; 
+    position: sticky;
+    position: -webkit-sticky; /* macOS/iOS Safari */ 
+    background-color: white;
+}
+
+.mat-option {
+    font-size: 14px;
+}
+
+:host ::ng-deep .mat-list-base .mat-subheader {
+    color: rgba(0, 0, 0, 0.58);
+}
+
+:host ::ng-deep .mat-selection-list {
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
+}
+
+:host ::ng-deep .mat-list-base .mat-list-item-disabled {
+    // background: mat-color($primary, 0.09);
+    background: unset;
+    color: unset;
+}
+
+:host ::ng-deep .mat-list-base .mat-list-item,
+:host ::ng-deep .mat-list-base .mat-list-option {
+    // background: mat-color($primary, 0.09);
+    font-size: 14px;
+    height: 36px;
+}
+
+:host ::ng-deep .mat-list-base .mat-list-item:last-child,
+:host ::ng-deep .mat-list-base .mat-list-option:last-child {
+    margin-bottom: 11px;
+}
+
+// :host ::ng-deep .mat-pseudo-checkbox-checked.mat-pseudo-checkbox-disabled,
+// :host ::ng-deep .mat-pseudo-checkbox-indeterminate.mat-pseudo-checkbox-disabled {
+//     background: mat-color($primary, 0.4);
+// }
+
+.mat-error-local {
+    padding-left: 10px;
+    font-size: 10.5px;
+}
